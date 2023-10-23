@@ -9,7 +9,7 @@ $titre = 'ptitcuistot';
 // ob_start crée un buffer qui va récupérer tout ce qui est censé être affiché (echo + HTML) 
 ob_start();
 ?>
-    <div class="container py-4 py-xl-5"><img style="width: 100%;height: 20em;">
+    <div class="container py-4 py-xl-5"><img style="width: 100%;height: 20em;" src="assets/img/batiment.png">
         <div class="row mb-5">
             <div class="col" style="background: var(--bs-primary);width: auto;max-width: 100%;--bs-body-color: #ffffff;min-width: 30%;">
                 <div style="background: transparent;text-align: center;"><img width="480" height="480" style="padding-top: 0px;width: 60%;height: 200%;min-width: 200px;min-height: 200px;margin: 20px;display: inline-grid;margin-right: auto;margin-left: auto;" src="assets/img/Pticuisto.png">
