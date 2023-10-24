@@ -21,4 +21,17 @@ class RecetteManager extends Manager {
         return new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
             $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
     }
+
+    public function getRecettes(): array{
+        $requete = "SELECT * FROM CUI_RECETTE ORDER BY REC_DATE_CREATION DESC";
+        $resultat = self::projectionBdd($requete);
+        $recettes = [];
+
+        foreach($resultat as $ligne){
+            $recettes[] = new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
+                $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
+        }
+
+        return $recettes;
+    }
 }
