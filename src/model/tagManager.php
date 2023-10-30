@@ -81,6 +81,23 @@ class TagManager extends Manager{
         }
     }
 
+    /**
+     * Ajoute un tag à une recette.
+     * @param Tag $tag le tag à ajouter
+     * @param string $idRecette l'id de la recette
+     */
+    public function ajouterTagARecette(Tag $tag, string $idRecette){
+        throw new Exception("not implemented yet");
+    }
+
+    /**
+     * Retire un tag d'une recette.
+     * @param Tag $tag le tag à enlever
+     * @param string $idRecette l'id de la recette
+     */
+    public function supprimerTagDeRecette(Tag $tag, string $idRecette){
+        throw new Exception("not implemented yet");
+    }
         
     /**
      * Supprime le tag de la base de données.

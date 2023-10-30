@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 require_once 'src/model/utilisateur.php';
+require_once 'src/model/tag.php';
 require_once 'src/model/tagManager.php';
+require_once 'src/model/ingredient.php';
 require_once 'src/model/ingredientManager.php';
 require_once 'src/model/utilisateur.php';
 require_once 'src/model/utilisateurManager.php';
@@ -130,6 +132,35 @@ class Recette {
     public function getAuteur(): Utilisateur{
         throw new Exception("not implemented yet");
     }
+
+	/**
+	 * Renvoie tous les tags de la recette.
+	 * @return array un tableau d'objets Tag
+	 * @see Tag
+	 */
+	public function getTags(): array{
+		return (new TagManager)->getParRecette($this->id);
+	}
+
+	public function ajouterTag(Tag $tag){
+		(new TagManager)->ajouterTagARecette($tag, $this->id);
+	}
+
+	public function supprimerTag(Tag $tag){
+		(new TagManager)->supprimerTagDeRecette($tag, $this->id);
+	}
+
+	public function getIngredients(): array{
+		return (new IngredientManager)->getParRecette($this->id);
+	}
+
+	public function ajouterIngredient(Ingredient $ingredient){
+		(new IngredientManager)->ajouterIngredientARecette($ingredient, $this->id);
+	}
+
+	public function supprimerIngredient(Ingredient $ingredient){
+		(new IngredientManager)->supprimerIngredientDeRecette($ingredient, $this->id);
+	}
     	
 	/**
 	 * Modifie le titre de la recette (en local, pas en bdd).

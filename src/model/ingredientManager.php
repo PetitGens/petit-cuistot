@@ -66,7 +66,7 @@ class IngredientManager extends Manager{
 
         
     /**
-     * Insert l'ingredient donné en paramètre dans la base de données.
+     * Insère l'ingredient donné en paramètre dans la base de données.
      *
      * @param Ingredient $ingredient
      * @return void
@@ -81,7 +81,24 @@ class IngredientManager extends Manager{
         }
     }
 
-        
+    /**
+     * Ajoute un ingrédient à une recette.
+     * @param Ingredient $ingredient l'ingrédient à ajouter
+     * @param string $idRecette l'id de la recette
+     */
+    public function ajouterIngredientARecette(Ingredient $ingredient, string $idRecette){
+        throw new Exception("not implemented yet");
+    }
+
+    /**
+     * Retire un ingrédient d'une recette.
+     * @param Ingredient $ingredient l'ingrédient à enlever
+     * @param string $idRecette l'id de la recette
+     */
+    public function supprimerIngredientDeRecette(Ingredient $ingredient, string $idRecette){
+        throw new Exception("not implemented yet");
+    }
+    
     /**
      * Supprime l'ingredient de la base de données.
      *
