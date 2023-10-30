@@ -10,7 +10,12 @@ declare(strict_types=1);
  * 
  * @author Julien Ait azzouzene <julien.aitazzouzene@etu.unicaen.fr>
  */
-class EditoManager{   
+class EditoManager{
+    private string $cheminEdito;
+
+    public function __construct($cheminEdito = "assets/edito.txt") {
+        $this->cheminEdito = $cheminEdito;
+    }
 
     /**
      * Renvoie le texte de l'édito
@@ -18,9 +23,13 @@ class EditoManager{
      * @return string
      */
     public function getEdito(): string{
-        throw new Exception('not implemented yet');
-    }
+        $contenu = file_get_contents($this->cheminEdito);
+        if(! $contenu){
+            throw new Exception("Échec de la lecture dans le fichier");
+        }
 
+        return $contenu;
+    }
         
     /**
      * Modifie le texte de l'édito.
@@ -29,6 +38,8 @@ class EditoManager{
      * @return void
      */
     public function setEdito(string $edito){
-        throw new Exception('not implemented yet');
+        if(! file_put_contents($this->cheminEdito, $edito)){
+            throw new Exception("Échec de l'écriture dans le fichier");
+        }
     }
 }
