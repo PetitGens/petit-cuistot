@@ -14,6 +14,16 @@ require_once 'src/model/tag.php';
  */
 class TagManager extends Manager{
 
+    private function tagFromLigne(array $ligne): Tag{
+        $id = $ligne['TAG_ID'];
+        $intitule = $ligne['TAG_INTITULE'];
+        $description = $ligne['TAG_DESCRIPTION'];
+        if(is_null($description)){
+            $description = '';
+        }
+        return new Tag($intitule, $id, $description);
+    }
+
     /**
      * Renvoie un tag en fonction de son id.
      *
@@ -21,9 +31,14 @@ class TagManager extends Manager{
      * @return ?Tag
      */
     public function getTag(string $id): ?Tag{
-        throw new Exception('not implemented yet');
-    }
+        $resultat = $this->projectionBdd("select TAG_ID, TAG_INTITULE, TAG_DESCRIPTION from CUI_TAG where tag_id = '$id'");
+        if(empty($resultat)){
+            return null;
+        }
 
+        $ligne = $resultat[0];
+        return $this->tagFromLigne($ligne);
+    }
         
     /**
      * Renvoie tous les tags.
@@ -31,7 +46,12 @@ class TagManager extends Manager{
      * @return array
      */
     public function getTags(): array{
-        throw new Exception('not implemented yet');
+        $tags = [];
+        $resultat = $this->projectionBdd("select TAG_ID, TAG_INTITULE, TAG_DESCRIPTION from CUI_TAG");
+        foreach($resultat as $ligne){
+            $tags[] = $this->tagFromLigne($ligne);
+        }
+        return $tags;
     }
     
     /**
@@ -52,7 +72,13 @@ class TagManager extends Manager{
      * @return void
      */
     public function creerTag(Tag $tag): void{
-        throw new Exception('not implemented yet');
+        $requete = 
+        "insert into CUI_TAG(TAG_INTITULE, TAG_DESCRIPTION)
+        values (?, NULLIF(?, ''))";
+
+        if(! $this->requetePrepare($requete, [$tag->getIntitule(), $tag->getDescription()])){
+            throw new Exception("échec de l'insertion du tag en base de données");
+        }
     }
 
         
@@ -63,6 +89,11 @@ class TagManager extends Manager{
      * @return void
      */
     public function supprimerTag(Tag $tag): void{
-        throw new Exception('not implemented yet');
+        $requete = 
+        "delete from CUI_TAG where TAG_ID = ?";
+
+        if(! $this->requetePrepare($requete, [$tag->getId()])){
+            throw new Exception("échec de la suppression du tag");
+        }
     }
 }

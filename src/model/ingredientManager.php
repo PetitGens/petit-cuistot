@@ -14,6 +14,16 @@ require_once 'src/model/ingredient.php';
  */
 class IngredientManager extends Manager{
 
+    private function ingredientFromLigne(array $ligne): Ingredient{
+        $id = $ligne['ING_ID'];
+        $intitule = $ligne['ING_INTITULE'];
+        $description = $ligne['ING_DESCRIPTION'];
+        if(is_null($description)){
+            $description = '';
+        }
+        return new Ingredient($intitule, $id, $description);
+    }
+
     /**
      * Renvoie un ingredient en fonction de son id.
      *
@@ -21,9 +31,14 @@ class IngredientManager extends Manager{
      * @return ?Ingredient
      */
     public function getIngredient(string $id): ?Ingredient{
-        throw new Exception('not implemented yet');
-    }
+        $resultat = $this->projectionBdd("select ING_ID, ING_INTITULE, ING_DESCRIPTION from CUI_INGREDIENT where ing_id = '$id'");
+        if(empty($resultat)){
+            return null;
+        }
 
+        $ligne = $resultat[0];
+        return $this->ingredientFromLigne($ligne);
+    }
         
     /**
      * Renvoie tous les ingredients.
@@ -31,7 +46,12 @@ class IngredientManager extends Manager{
      * @return array
      */
     public function getIngredients(): array{
-        throw new Exception('not implemented yet');
+        $ingredients = [];
+        $resultat = $this->projectionBdd("select ING_ID, ING_INTITULE, ING_DESCRIPTION from CUI_INGREDIENT");
+        foreach($resultat as $ligne){
+            $ingredients[] = $this->ingredientFromLigne($ligne);
+        }
+        return $ingredients;
     }
     
     /**
@@ -52,7 +72,13 @@ class IngredientManager extends Manager{
      * @return void
      */
     public function creerIngredient(Ingredient $ingredient): void{
-        throw new Exception('not implemented yet');
+        $requete = 
+        "insert into CUI_INGREDIENT(ING_INTITULE, ING_DESCRIPTION)
+        values (?, NULLIF(?, ''))";
+
+        if(! $this->requetePrepare($requete, [$ingredient->getIntitule(), $ingredient->getDescription()])){
+            throw new Exception("échec de l'insertion du ingredient en base de données");
+        }
     }
 
         
@@ -63,6 +89,11 @@ class IngredientManager extends Manager{
      * @return void
      */
     public function supprimerIngredient(Ingredient $ingredient): void{
-        throw new Exception('not implemented yet');
+        $requete = 
+        "delete from CUI_INGREDIENT where ING_ID = ?";
+
+        if(! $this->requetePrepare($requete, [$ingredient->getId()])){
+            throw new Exception("échec de la suppression du ingredient");
+        }
     }
 }

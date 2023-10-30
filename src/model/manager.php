@@ -34,8 +34,6 @@ abstract class Manager{
 
         $statement =  $this->bdd->query($requete);
 
-        var_dump($statement);
-
         while($ligne = $statement->fetch()){
             $lignes[] = $ligne;
         }
