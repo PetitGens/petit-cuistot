@@ -20,6 +20,7 @@ abstract class Manager{
      */
     public function __construct(){
         $this->bdd = ConnectionBdd::getInstance();
+        $this->bdd->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     }
 
     /**
