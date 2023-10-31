@@ -43,7 +43,7 @@ class Utilisateur {
      * @param string $id id de l'utilisateur (lecture seule)
      * @param string $dateInscription date d'inscription (lecture seule)
      */
-    public function __construct(string $pseudo, string $hashMdp, string $email, string $type, string $statut = "A", string $id = "", string $nom = "", string $prenom = "", string $dateInscription = ""){$this->pseudo = $pseudo;$this->hashMdp = $hashMdp;$this->email = $email;$this->type = $type;$this->nom = $nom;$this->prenom = $prenom;$this->statut = $statut;$this->id = $id;$this->dateInscription = $dateInscription;}
+    public function __construct(string $pseudo, string $email, string $type, string $statut = "A", string $id = "", string $nom = "", string $prenom = "", string $dateInscription = ""){$this->pseudo = $pseudo;$this->email = $email;$this->type = $type;$this->nom = $nom;$this->prenom = $prenom;$this->statut = $statut;$this->id = $id;$this->dateInscription = $dateInscription;}
 
     /**
      * Renvoie le pseudo de l'utilisateur.
