@@ -122,6 +122,14 @@ class Recette {
     public function estValide(): bool{
         return $this->statut === "V";
     }
+
+	/**
+	 * Renvoie true si la recette est en attente de validation pour modification.
+	 * Sinon, renvoie false.
+	 */
+	public function estModifiee(): bool {
+		return $this->statut === "M";
+	}
         
     /**
      * Renvoie l'auteur de la recette.

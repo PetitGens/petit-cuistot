@@ -62,7 +62,21 @@ class TagManager extends Manager{
      * @return array
      */
     public function getParRecette(string $idRecette): array{
-        throw new Exception('not implemented yet');
+        $requete =
+        "SELECT * FROM CUI_TAG
+        where TAG_ID in(
+            select TAG_ID FROM CUI_ETIQUETTAGE
+            WHERE REC_ID = '$idRecette'
+        )";
+
+        $resultat = self::projectionBdd($requete);
+        $tags = [];
+
+        foreach($resultat as $ligne){
+            $tags[] = $this->tagFromLigne($ligne);
+        }
+
+        return $tags;
     }
 
         

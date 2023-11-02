@@ -57,13 +57,26 @@ class IngredientManager extends Manager{
     /**
      * Renvoie tous les ingredients d'une recette.
      *
-     * @param string $idRecette id de la recette
+     * @param string $idRecette l'id de la recette 
      * @return array
      */
     public function getParRecette(string $idRecette): array{
-        throw new Exception('not implemented yet');
-    }
+        $requete =
+        "SELECT * FROM CUI_INGREDIENT
+        where ING_ID in(
+            select ING_ID FROM CUI_COMPOSITION
+            WHERE REC_ID = '$idRecette'
+        )";
 
+        $resultat = self::projectionBdd($requete);
+        $ingredients = [];
+
+        foreach($resultat as $ligne){
+            $ingredients[] = $this->ingredientFromLigne($ligne);
+        }
+
+        return $ingredients;
+    }
         
     /**
      * Insère l'ingredient donné en paramètre dans la base de données.
