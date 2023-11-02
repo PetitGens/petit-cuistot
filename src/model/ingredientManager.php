@@ -15,7 +15,7 @@ require_once 'src/model/ingredient.php';
 class IngredientManager extends Manager{
 
     private function ingredientFromLigne(array $ligne): Ingredient{
-        $id = $ligne['ING_ID'];
+        $id = strval($ligne['ING_ID']);
         $intitule = $ligne['ING_INTITULE'];
         $description = $ligne['ING_DESCRIPTION'];
         if(is_null($description)){

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-require_once 'src/model/utilisateur.php';
 require_once 'src/model/tag.php';
 require_once 'src/model/tagManager.php';
 require_once 'src/model/ingredient.php';
@@ -47,7 +46,7 @@ class Recette {
      * @param string $date_creation date de  création de la recettte (seulement pour la lecture)
      * @param string $date_modification date de la dernière modification (seulement pour la lecture)
      */
-    public function __construct(string $titre, string $contenu, string $resume, string $image, string $statut, string $idAuteur, string $codeCategorie, string $id = "", string $pseudoAuteur = "", string $date_creation = "", string $date_modification = ""){$this->id = $id;$this->titre = $titre;$this->contenu = $contenu;$this->resume = $resume;$this->image = $image;$this->date_creation = $date_creation;$this->date_modification = $date_modification;$this->statut = $statut;$this->idAuteur = $idAuteur;$this->pseudoAuteur = $pseudoAuteur;$this->categorie = $codeCategorie;}
+    public function __construct(string $titre, string $contenu, string $resume, string $image, string $statut, string $idAuteur, string $categorie, string $id = "", string $pseudoAuteur = "", string $date_creation = "", string $date_modification = ""){$this->id = $id;$this->titre = $titre;$this->contenu = $contenu;$this->resume = $resume;$this->image = $image;$this->date_creation = $date_creation;$this->date_modification = $date_modification;$this->statut = $statut;$this->idAuteur = $idAuteur;$this->pseudoAuteur = $pseudoAuteur;$this->categorie = $categorie;}
     
     /**
      * Renvoie l'id de la recette.
@@ -130,7 +129,7 @@ class Recette {
      * @see Utilisateur
      */
     public function getAuteur(): Utilisateur{
-        throw new Exception("not implemented yet");
+        return (new UtilisateurManager)->getUtilisateur($this->idAuteur);
     }
 
 	/**

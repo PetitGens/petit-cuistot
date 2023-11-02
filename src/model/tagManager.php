@@ -15,12 +15,13 @@ require_once 'src/model/tag.php';
 class TagManager extends Manager{
 
     private function tagFromLigne(array $ligne): Tag{
-        $id = $ligne['TAG_ID'];
+        $id = strval($ligne['TAG_ID']);
         $intitule = $ligne['TAG_INTITULE'];
         $description = $ligne['TAG_DESCRIPTION'];
         if(is_null($description)){
             $description = '';
         }
+
         return new Tag($intitule, $id, $description);
     }
 

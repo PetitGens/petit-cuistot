@@ -6,16 +6,37 @@ require_once 'src/model/manager.php';
 require_once 'src/model/recette.php';
 require_once 'src/model/tag.php';
 require_once 'src/model/ingredient.php';
-
+require_once 'src/model/categorieManager.php';
 
 /**
  * Classe utilitaire permettant de gérer les recettes de la base (CRUD).
  * 
  * @see Recette
  * 
- * @author Julien Ait azzouzene <julien.aitazzouzene@etu.unicaen.fr>
+ * @author Julien Ait azzouzene <julien.aitazzouzene@etu.unicaen.fr>,
+ * Guilhem Saint Gaudin <guilhem.saint-gaudin@etu.unicaen.fr>
  */
 class RecetteManager extends Manager {
+
+    private function recetteFromLigne(array $ligne): Recette {
+        $id = strval($ligne['REC_ID']);
+        $titre = $ligne['REC_TITRE'];
+        $resume = $ligne['REC_RESUME'];
+        $contenu = $ligne['REC_CONTENU'];
+        $image = $ligne['REC_IMAGE'];
+        $date_creation = $ligne['REC_DATE_CREATION'];
+        $statut = $ligne['REC_STATUT'];
+        $categorie = $ligne['CAT_INTITULE'];
+        $idAuteur = strval($ligne['UTIL_ID']);
+        $pseudoAuteur = $ligne['UTIL_PSEUDO'];
+
+        $date_modification = $ligne['REC_DATE_MODIFICATION'];
+        if(is_null($date_modification)){
+            $date_modification = '';
+        }
+
+        return new Recette($titre, $contenu, $resume, $image, $statut, $idAuteur, $categorie, $id, $pseudoAuteur, $date_creation, $date_modification);
+    }
 
     /**
      * Renvoie une recette en fonction de son id.
@@ -23,7 +44,11 @@ class RecetteManager extends Manager {
      * @return ?Recette
      */
     public function getRecette(string $id) : ?Recette{
-        $requete = "SELECT * FROM CUI_RECETTE WHERE rec_id='$id'";
+        $requete = 
+        "SELECT * FROM CUI_RECETTE 
+        JOIN CUI_CATEGORIE USING (CAT_CODE)
+        JOIN CUI_UTILISATEUR USING (UTIL_ID)
+        WHERE rec_id='$id'";
         $resultat = self::projectionBdd($requete);
         
         if(! isset($resultat[0])) {
@@ -32,10 +57,7 @@ class RecetteManager extends Manager {
 
         $ligne = $resultat[0];
 
-        var_dump($ligne);
-
-        return new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
-            $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
+        return self::recetteFromLigne($ligne);
     }
 
     /**
@@ -43,13 +65,17 @@ class RecetteManager extends Manager {
      * @return array un tableau d'objets Recette
      */
     public function getRecettes(): array{
-        $requete = "SELECT * FROM CUI_RECETTE ORDER BY REC_DATE_CREATION DESC";
+        $requete = 
+        "SELECT * FROM CUI_RECETTE
+        JOIN CUI_CATEGORIE USING (CAT_CODE)
+        JOIN CUI_UTILISATEUR USING (UTIL_ID)
+        ORDER BY REC_DATE_CREATION DESC";
+
         $resultat = self::projectionBdd($requete);
         $recettes = [];
 
         foreach($resultat as $ligne){
-            $recettes[] = new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
-                $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
+            $recettes[] = self::recetteFromLigne($ligne);
         }
 
         return $recettes;
@@ -63,21 +89,18 @@ class RecetteManager extends Manager {
      * @return array un tableau d'objets Recette
      */
     public function getDernieresRecettes(int $nombre): array{
+        $requete = 
+        "SELECT * FROM CUI_RECETTE 
+        JOIN CUI_CATEGORIE USING (CAT_CODE)
+        JOIN CUI_UTILISATEUR USING (UTIL_ID)
+        ORDER BY REC_DATE_CREATION DESC LIMIT $nombre";
 
-        $requete = "SELECT * FROM (SELECT * FROM CUI_RECETTE ORDER BY DATE_MODIFICATION) WHERE ROWID <= $nombre";
         $resultat = self::projectionBdd($requete);
         $recettes = [];
 
-        if(! isset($resultat[0])) {
-            return null;
-        }
-
         foreach($resultat as $ligne){
-            $recettes[] = new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
-            $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
+            $recettes[] = self::recetteFromLigne($ligne);
         }
-
-        var_dump($recettes);
 
         return $recettes;
     }
@@ -89,17 +112,16 @@ class RecetteManager extends Manager {
      */
     public function getRecettesNonValidees(): array{
 
-        $requete = "SELECT * FROM CUI_RECETTE WHERE REC_STATUT != 'V'";
+        $requete = 
+        "SELECT * FROM CUI_RECETTE
+        JOIN CUI_CATEGORIE USING (CAT_CODE)
+        JOIN CUI_UTILISATEUR USING (UTIL_ID)
+        WHERE REC_STATUT != 'V'";
         $resultat = self::projectionBdd($requete);
         $recettes = [];
 
-        if(! isset($resultat[0])) {
-            return null;
-        }
-
         foreach($resultat as $ligne){
-            $recettes[] = new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
-            $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
+            $recettes[] = self::recetteFromLigne($ligne);
         }
 
         return $recettes;
@@ -112,18 +134,16 @@ class RecetteManager extends Manager {
      * @return array un tableau d'objets Recette
      */
     public function getParCategorie(string $categorie): array{
+        $requete = "SELECT * FROM CUI_RECETTE 
+        JOIN CUI_CATEGORIE USING (CAT_CODE)
+        JOIN CUI_UTILISATEUR USING (UTIL_ID)
+        WHERE CAT_INTITULE = '$categorie'";
 
-        $requete = "SELECT * FROM CUI_RECETTE JOIN CUI_CATEGORIE USING(CAT_CODE) WHERE CAT_INTITULE = '$categorie'";
         $resultat = self::projectionBdd($requete);
         $recettes = [];
 
-        if(! isset($resultat[0])) {
-            return null;
-        }
-
         foreach($resultat as $ligne){
-            $recettes[] = new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
-            $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
+            $recettes[] = self::recetteFromLigne($ligne);
         }
 
         return $recettes;
@@ -157,17 +177,15 @@ class RecetteManager extends Manager {
      */
     public function getParUtilisateur(string $idUtilisateur): array{
 
-        $requete = "SELECT * FROM CUI_RECETTE WHERE UTIL_ID = '$idUtilisateur'";
+        $requete = "SELECT * FROM CUI_RECETTE
+        JOIN CUI_CATEGORIE USING (CAT_CODE)
+        JOIN CUI_UTILISATEUR USING (UTIL_ID)
+        WHERE UTIL_ID = '$idUtilisateur'";
         $resultat = self::projectionBdd($requete);
         $recettes = [];
 
-        if(! isset($resultat[0])) {
-            return null;
-        }
-
         foreach($resultat as $ligne){
-            $recettes[] = new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
-            $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
+            $recettes[] = self::recetteFromLigne($ligne);
         }
 
         return $recettes;
@@ -175,15 +193,33 @@ class RecetteManager extends Manager {
     }
 
     /**
-     * Insert une recette dans la base de données.
+     * Insère une recette dans la base de données.
      * @param Recette $recette
      * @return void
      */
     public function creerRecette(Recette $recette): void{
+        $categorie = (new CategorieManager)->getCodeCategorie($recette->getCategorie());
 
-        
+        if(is_null($categorie)){
+            throw new InvalidArgumentException("Cette catégorie n'existe pas : ".$recette->getCategorie());
+        }
 
-        throw new Exception('not implemented yet');
+        $requete = 
+        "INSERT INTO CUI_RECETTE (REC_TITRE, REC_CONTENU, REC_RESUME, 
+        REC_IMAGE, REC_DATE_CREATION, REC_STATUT, CAT_CODE, UTIL_ID)
+        VALUES (?, ?, ?, ?, NOW(), ?, ?, ?)";
+
+        $parametres[0] = $recette->getTitre();
+        $parametres[1] = $recette->getContenu();
+        $parametres[2] = $recette->getResume();
+        $parametres[3] = $recette->getImage();
+        $parametres[4] = $recette->estValide() ? 'V' : 'A';
+        $parametres[5] = $categorie;
+        $parametres[6] = $recette->getIdAuteur();
+
+        if(self::requetePrepare($requete, $parametres) != 1){
+            throw new Exception("Échec pendant la création de recette.");
+        }
     }
 
     /**
@@ -204,7 +240,11 @@ class RecetteManager extends Manager {
      * @param Recette $recette la recette à supprimer
      */
     public function supprimerRecette(Recette $recette): void{
-        throw new Exception('not implemented yet');
+        $requete = "DELETE FROM CUI_RECETTE WHERE REC_ID = ?";
+
+        if(self::requetePrepare($requete, [$recette->getId()]) != 1){
+            throw new Exception("Échec de la suppression de recette.");
+        }
     }
 
     /**

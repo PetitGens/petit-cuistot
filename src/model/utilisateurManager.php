@@ -21,7 +21,7 @@ class UtilisateurManager extends Manager{
         $nom = $ligne['UTIL_NOM'];
         $prenom = $ligne['UTIL_PRENOM'];
         $statut = $ligne['UTIL_STATUT'];
-        $id = $ligne['UTIL_ID'];
+        $id = strval($ligne['UTIL_ID']);
         $dateInscription = $ligne['UTIL_DATE_INSCRIPTION'];
 
         return new Utilisateur($pseudo, $email, $type, $statut, $id, $nom, $prenom, $dateInscription);

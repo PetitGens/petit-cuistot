@@ -23,9 +23,8 @@ class Tag{
      * @param string $description description du tag (facultatif)
      */
     public function __construct(string $intitule, string $id = "",  string $description = ""){$this->id = $id;$this->intitule = $intitule;$this->description = $description;}
-
         
-    /**
+    /** 
      * Renvoie l'id du tag.
      * @return string
      */
