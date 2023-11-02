@@ -63,7 +63,23 @@ class RecetteManager extends Manager {
      * @return array un tableau d'objets Recette
      */
     public function getDernieresRecettes(int $nombre): array{
-        throw new Exception('not implemented yet');
+
+        $requete = "SELECT * FROM (SELECT * FROM CUI_RECETTE ORDER BY DATE_MODIFICATION) WHERE ROWID <= $nombre";
+        $resultat = self::projectionBdd($requete);
+        $recettes = [];
+
+        if(! isset($resultat[0])) {
+            return null;
+        }
+
+        foreach($resultat as $ligne){
+            $recettes[] = new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
+            $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
+        }
+
+        var_dump($recettes);
+
+        return $recettes;
     }
 
     /**
@@ -72,7 +88,22 @@ class RecetteManager extends Manager {
      * @return array un tableau d'objets Recette
      */
     public function getRecettesNonValidees(): array{
-        throw new Exception('not implemented yet');
+
+        $requete = "SELECT * FROM CUI_RECETTE WHERE REC_STATUT != 'V'";
+        $resultat = self::projectionBdd($requete);
+        $recettes = [];
+
+        if(! isset($resultat[0])) {
+            return null;
+        }
+
+        foreach($resultat as $ligne){
+            $recettes[] = new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
+            $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
+        }
+
+        return $recettes;
+
     }
 
     /**
@@ -81,7 +112,22 @@ class RecetteManager extends Manager {
      * @return array un tableau d'objets Recette
      */
     public function getParCategorie(string $categorie): array{
-        throw new Exception('not implemented yet');
+
+        $requete = "SELECT * FROM CUI_RECETTE JOIN CUI_CATEGORIE USING(CAT_CODE) WHERE CAT_INTITULE = '$categorie'";
+        $resultat = self::projectionBdd($requete);
+        $recettes = [];
+
+        if(! isset($resultat[0])) {
+            return null;
+        }
+
+        foreach($resultat as $ligne){
+            $recettes[] = new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
+            $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
+        }
+
+        return $recettes;
+
     }
 
     /**
@@ -92,6 +138,14 @@ class RecetteManager extends Manager {
      * @see Ingredient
      */
     public function getParIngredients(array $ingredients): array{
+        /*TODO
+        $requete = "SELECT * FROM CUI_RECETTE WHERE CAT_INTITULE = '$categorie'";
+        $list = [];
+        
+        for(int $i = 1; i<=count($ingredients); $i++){
+            $list[] = self::projectionBdd($requete);
+        }      */  
+        
         throw new Exception('not implemented yet');
     }
 
@@ -102,7 +156,22 @@ class RecetteManager extends Manager {
      * @see Utilisateur
      */
     public function getParUtilisateur(string $idUtilisateur): array{
-        throw new Exception('not implemented yet');
+
+        $requete = "SELECT * FROM CUI_RECETTE WHERE UTIL_ID = '$idUtilisateur'";
+        $resultat = self::projectionBdd($requete);
+        $recettes = [];
+
+        if(! isset($resultat[0])) {
+            return null;
+        }
+
+        foreach($resultat as $ligne){
+            $recettes[] = new Recette($ligne['REC_ID'], $ligne['REC_TITRE'], $ligne['REC_CONTENU'], $ligne['REC_RESUME'], $ligne['REC_IMAGE'],
+            $ligne['REC_DATE_CREATION'], $ligne['REC_DATE_MODIFICATION'], $ligne['REC_STATUT'], $ligne['UTIL_ID'], $ligne['CAT_CODE']);
+        }
+
+        return $recettes;
+
     }
 
     /**
@@ -111,6 +180,9 @@ class RecetteManager extends Manager {
      * @return void
      */
     public function creerRecette(Recette $recette): void{
+
+        
+
         throw new Exception('not implemented yet');
     }
 
