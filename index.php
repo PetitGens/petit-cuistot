@@ -19,6 +19,10 @@ try{
     // Si ça ne correspond à aucune page, on renvoie vers la page d'erreur
     // (pour l'instant on a pas d'autre page, donc on retourne forcément une erreur)
     switch($_GET['action']){
+        case 'test':
+            require 'test/tests.php';
+            break;
+            
         default:
             throw new Exception("la page demandée n'a pas été trouvée");
     }
