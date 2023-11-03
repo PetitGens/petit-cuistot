@@ -7,6 +7,7 @@
 // Le retour se chargera aussi de gérer les exceptions avec un try / catch
 
 require_once 'src/controllers/accueil.php';
+require_once 'src/controllers/pageRecette.php';
 
 try{
     // Si 'action' n'est pas défini, on charge la page d'accueil
@@ -22,6 +23,11 @@ try{
         case 'test':
             require 'test/tests.php';
             break;
+
+        case 'detail-recette':
+            $controleur = new PageRecetteControleur();
+            $controleur->executer();
+            break;
             
         default:
             throw new Exception("la page demandée n'a pas été trouvée");
@@ -30,4 +36,4 @@ try{
 catch(Exception $e){
     $messageErreur = $e->getMessage();
     require 'templates/erreur.php';
-} 
+}
