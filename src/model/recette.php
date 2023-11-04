@@ -120,7 +120,7 @@ class Recette {
      * @return bool
      */
     public function estValide(): bool{
-        return $this->statut === "V";
+        return $this->statut === "V" || $this->statut === "M";
     }
 
 	/**

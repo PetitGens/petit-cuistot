@@ -79,9 +79,33 @@ class TagManager extends Manager{
         return $tags;
     }
 
+    /**
+     * Renvoie tous les tags d'une recette modifiée.
+     *
+     * @param string $idRecette id de la recette
+     * @return array
+     * @see RecetteModifiee
+     */
+    public function getParRecetteModifiee(string $idRecette): array{
+        $requete =
+        "SELECT * FROM CUI_TAG
+        where TAG_ID in(
+            select TAG_ID FROM CUI_ETIQUETTAGE_MOD
+            WHERE REC_ID = '$idRecette'
+        )";
+
+        $resultat = self::projectionBdd($requete);
+        $tags = [];
+
+        foreach($resultat as $ligne){
+            $tags[] = $this->tagFromLigne($ligne);
+        }
+
+        return $tags;
+    }
         
     /**
-     * Insert le tag donné en paramètre dans la base de données.
+     * Insère le tag donné en paramètre dans la base de données.
      *
      * @param Tag $tag
      * @return void
@@ -98,10 +122,24 @@ class TagManager extends Manager{
 
     /**
      * Ajoute un tag à une recette.
+     * Si le tag, n'est pas présent dans la base, l'insère.
      * @param Tag $tag le tag à ajouter
      * @param string $idRecette l'id de la recette
      */
     public function ajouterTagARecette(Tag $tag, string $idRecette){
+        //TODO écrire la méthode
+        throw new Exception("not implemented yet");
+    }
+
+    /**
+     * Ajoute un tag à une recette modifiée.
+     * Si le tag, n'est pas présent dans la base, l'insère.
+     * @param Tag $tag le tag à ajouter
+     * @param string $idRecette l'id de la recette
+     * @see RecetteModifiee
+     */
+    public function ajouterTagARecetteModifiee(Tag $tag, string $idRecette){
+        //TODO écrire la méthode
         throw new Exception("not implemented yet");
     }
 
@@ -111,6 +149,18 @@ class TagManager extends Manager{
      * @param string $idRecette l'id de la recette
      */
     public function supprimerTagDeRecette(Tag $tag, string $idRecette){
+        //TODO écrire la méthode
+        throw new Exception("not implemented yet");
+    }
+
+    /**
+     * Retire un tag d'une recette modifiée.
+     * @param Tag $tag le tag à enlever
+     * @param string $idRecette l'id de la recette
+     * @see RecetteModifiee
+     */
+    public function supprimerTagDeRecetteModifiee(Tag $tag, string $idRecette){
+        //TODO écrire la méthode
         throw new Exception("not implemented yet");
     }
         

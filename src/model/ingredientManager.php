@@ -77,6 +77,31 @@ class IngredientManager extends Manager{
 
         return $ingredients;
     }
+
+    /**
+     * Renvoie tous les ingredients d'une recette modifiée.
+     *
+     * @param string $idRecette l'id de la recette
+     * @return array
+     * @see RecetteModifiee
+     */
+    public function getParRecetteModifiee(string $idRecette): array{
+        $requete =
+        "SELECT * FROM CUI_INGREDIENT
+        where ING_ID in(
+            select ING_ID FROM CUI_COMPOSITION_MOD
+            WHERE REC_ID = '$idRecette'
+        )";
+
+        $resultat = self::projectionBdd($requete);
+        $ingredients = [];
+
+        foreach($resultat as $ligne){
+            $ingredients[] = $this->ingredientFromLigne($ligne);
+        }
+
+        return $ingredients;
+    }
         
     /**
      * Insère l'ingredient donné en paramètre dans la base de données.
@@ -90,7 +115,7 @@ class IngredientManager extends Manager{
         values (?, NULLIF(?, ''))";
 
         if(! $this->requetePrepare($requete, [$ingredient->getIntitule(), $ingredient->getDescription()])){
-            throw new Exception("échec de l'insertion du ingredient en base de données");
+            throw new Exception("échec de l'insertion de l'ingredient en base de données");
         }
     }
 
@@ -100,6 +125,18 @@ class IngredientManager extends Manager{
      * @param string $idRecette l'id de la recette
      */
     public function ajouterIngredientARecette(Ingredient $ingredient, string $idRecette){
+        //TODO écrire la méthode
+        throw new Exception("not implemented yet");
+    }
+
+    /**
+     * Ajoute un ingrédient à une recette modifiée.
+     * @param Ingredient $ingredient l'ingrédient à ajouter
+     * @param string $idRecette l'id de la recette
+     * @see RecetteModifiee
+     */
+    public function ajouterIngredientARecetteModifiee(Ingredient $ingredient, string $idRecette){
+        //TODO écrire la méthode
         throw new Exception("not implemented yet");
     }
 
@@ -109,6 +146,18 @@ class IngredientManager extends Manager{
      * @param string $idRecette l'id de la recette
      */
     public function supprimerIngredientDeRecette(Ingredient $ingredient, string $idRecette){
+        //TODO écrire la méthode
+        throw new Exception("not implemented yet");
+    }
+
+    /**
+     * Retire un ingrédient d'une recette modifiée.
+     * @param Ingredient $ingredient l'ingrédient à enlever
+     * @param string $idRecette l'id de la recette
+     * @see RecetteModifiee
+     */
+    public function supprimerIngredientDeRecetteModifiee(Ingredient $ingredient, string $idRecette){
+        //TODO écrire la méthode
         throw new Exception("not implemented yet");
     }
     
@@ -123,7 +172,7 @@ class IngredientManager extends Manager{
         "delete from CUI_INGREDIENT where ING_ID = ?";
 
         if(! $this->requetePrepare($requete, [$ingredient->getId()])){
-            throw new Exception("échec de la suppression du ingredient");
+            throw new Exception("échec de la suppression de l'ingredient");
         }
     }
 }
