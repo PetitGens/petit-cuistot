@@ -8,8 +8,12 @@
 
 require_once 'src/controllers/accueil.php';
 require_once 'src/controllers/pageRecette.php';
+require_once 'src/controllers/pageConnexion.php';
+require_once 'src/controllers/connexion.php';
 
 try{
+    session_start();
+
     // Si 'action' n'est pas défini, on charge la page d'accueil
     if(! isset($_GET['action']) || empty($_GET['action'])){
         pageAccueil(3);
@@ -22,6 +26,21 @@ try{
     switch($_GET['action']){
         case 'test':
             require 'test/tests.php';
+            break;
+
+        case 'pageConnexion':
+            $controleur = new PageConnexionControleur();
+            $controleur->executer();
+            break;
+
+        case 'erreurConnexion':
+            $controleur = new PageConnexionControleur(true);
+            $controleur->executer();
+            break;
+
+        case 'connexion':
+            $controleur = new ConnexionController();
+            $controleur->executer();
             break;
 
         case 'detail-recette':
