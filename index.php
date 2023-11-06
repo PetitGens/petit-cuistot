@@ -6,6 +6,8 @@
 
 // Le retour se chargera aussi de gérer les exceptions avec un try / catch
 
+require_once 'src/controllers/controleur.php';
+require_once 'src/controllers/listeRecettes.php';
 require_once 'src/controllers/accueil.php';
 
 try{
@@ -19,6 +21,15 @@ try{
     // Si ça ne correspond à aucune page, on renvoie vers la page d'erreur
     // (pour l'instant on a pas d'autre page, donc on retourne forcément une erreur)
     switch($_GET['action']){
+        case 'listeRecettes':
+            $controller = new ListeRecettesControleur;
+            $controller->executer();
+            break;
+
+        case 'test':
+            require 'test/tests.php';
+            break;
+
         default:
             throw new Exception("la page demandée n'a pas été trouvée");
     }
