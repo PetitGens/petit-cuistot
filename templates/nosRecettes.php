@@ -10,6 +10,8 @@ require_once 'src/model/recette.php';
 function afficherListeRecettes($recettes){
     $titre = 'Nos Recettes';
 
+    $script = '<script src="assets/js/listeRecette.js"></script>';
+
     // ob_start crée un buffer qui va récupérer tout ce qui est censé être affiché (echo + HTML) 
     ob_start();
     ?>
@@ -21,7 +23,7 @@ function afficherListeRecettes($recettes){
                     <p class="w-lg-50">Les recettes pour vos p'tits gloutons, certifiées savoureux par notre équipe de cuistots du dimanche</p>
                 </div>
             </div>
-            <div class="row gy-4 row-cols-1 row-cols-md-2">
+            <div class="row gy-4 row-cols-1 row-cols-md-2" id="conteneurRecette">
                 <?php
                 foreach($recettes as $recette){
                     if($recette->estValide()){
@@ -31,7 +33,7 @@ function afficherListeRecettes($recettes){
                 ?>
             </div>
         </div>
-        <div class="container py-4 py-xl-5"><button class="btn btn-primary" type="button" style="width: 3em;height: 3em;border-radius: 50%;font-size: 34px;padding-bottom: 10px;margin: auto;display: block;">+</button></div>
+        <div id="boutonPlus" class="container py-4 py-xl-5"><button class="btn btn-primary" type="button" style="width: 3em;height: 3em;border-radius: 50%;font-size: 34px;padding-bottom: 10px;margin: auto;display: block;">+</button></div>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/Simple-Slider-swiper-bundle.min.js"></script>
         <script src="assets/js/Simple-Slider.js"></script>

@@ -58,5 +58,6 @@
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Simple-Slider-swiper-bundle.min.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
+    <?php if(isset($script)) echo $script ?>
 </body>
 </html>
