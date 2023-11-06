@@ -26,6 +26,10 @@ try{
             $controller->executer();
             break;
 
+        case 'test':
+            require 'test/tests.php';
+            break;
+
         default:
             throw new Exception("la page demandée n'a pas été trouvée");
     }
