@@ -4,13 +4,14 @@
 // C'est également des contrôleurs qu'on utilise pour valider les formulaires.
 
 require_once 'src/controllers/controleur.php';
-
 require_once 'src/model/recetteManager.php';
-require_once 'templates/accueil.php';
+
+
 
 class AccueilControleur extends Controleur {
     public function executer(){
-        $recettes = (new RecetteManager)->getDernieresRecettes(3);
-        afficherPageAccueil($recettes);
+        $recettesManager = new RecetteManager();
+        $recettes = $recettesManager->getDernieresRecettes(3);
+        require 'templates/accueil.php';
     }
 }
