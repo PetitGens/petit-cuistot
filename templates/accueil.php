@@ -7,6 +7,8 @@
 include_once 'src/model/recette.php';
 include_once 'src/model/recetteManager.php';
 
+require_once 'templates/carteRecette.php';
+
 // Le code HTML sera placé en énorme majorité dans les vues et le layout
 
 
@@ -34,7 +36,10 @@ ob_start();
                 
                 <?php
                 foreach($recettes as $recette){
-                ?>
+                    ?><div style="margin: 10px"><?php
+                    afficher($recette, false);
+                    ?></div><?php
+                /*?>
                     <div class="row">
                         <div class="col" style="text-align: left;"><a href="index.php?action=detail-recette&=idRecette=<?=$recette->getId()?>"><img style="width: 50%;display: inline-block;position: initial;margin: 15px;padding: initial;margin-left: 0px;" src="<?=$recette->getImage()?>"></a>
                             <div style="display: inline-block;">
@@ -43,7 +48,7 @@ ob_start();
                             </div>
                         </div>
                     </div>
-                <?php
+                <?php*/
                 }
                 ?>
 

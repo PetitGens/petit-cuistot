@@ -9,9 +9,9 @@ require_once './src/model/recette.php';
 require_once './src/model/tag.php';
 
 
-function afficher($recette){
+function afficher($recette, $cache = true){
     $lienRecette = ".?action=detail-recette&idRecette=".$recette->getId()?>
-    <div class="col hidden">
+    <div class="col <?php if($cache) echo "hidden"?>">
         <a href="<?= $lienRecette ?>" style="all: unset; cursor: pointer">
             <div class="d-flex flex-column flex-lg-row" style="border : 2px solid black; border-radius : 6px" > 
                 <div class="w-100" style="max-width: initial;"><img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src= "<?=$recette->getImage()?>">

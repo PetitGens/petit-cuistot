@@ -6,8 +6,6 @@
 require_once 'src/controllers/controleur.php';
 require_once 'src/model/recetteManager.php';
 
-
-
 class AccueilControleur extends Controleur {
     public function executer(){
         $recettesManager = new RecetteManager();
