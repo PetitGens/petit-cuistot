@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['manager_0',['Manager',['../class_manager.html',1,'']]]
+  ['listerecettescontroleur_0',['ListeRecettesControleur',['../class_liste_recettes_controleur.html',1,'']]]
 ];

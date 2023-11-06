@@ -99,6 +99,8 @@ $(document).ready(function(){initNavTree('class_recette_manager.html',''); initR
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4ee8194d5fbcdb3597e25e2074d0281a" id="r_a4ee8194d5fbcdb3597e25e2074d0281a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_recette_manager.html#a4ee8194d5fbcdb3597e25e2074d0281a">getRecette</a> (string $id)</td></tr>
 <tr class="separator:a4ee8194d5fbcdb3597e25e2074d0281a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eeb318aee7d66c5d2dbb6b6e1140e9c" id="r_a4eeb318aee7d66c5d2dbb6b6e1140e9c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_recette_manager.html#a4eeb318aee7d66c5d2dbb6b6e1140e9c">getRecetteModifiee</a> (string $id)</td></tr>
+<tr class="separator:a4eeb318aee7d66c5d2dbb6b6e1140e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa39e7f7324afceb987af1e0ad43a90b0" id="r_aa39e7f7324afceb987af1e0ad43a90b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_recette_manager.html#aa39e7f7324afceb987af1e0ad43a90b0">getRecettes</a> ()</td></tr>
 <tr class="separator:aa39e7f7324afceb987af1e0ad43a90b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1771b790245ccb31c8a68fd8bda183e9" id="r_a1771b790245ccb31c8a68fd8bda183e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_recette_manager.html#a1771b790245ccb31c8a68fd8bda183e9">getDernieresRecettes</a> (int $nombre)</td></tr>
@@ -141,7 +143,7 @@ PDO&#160;</td><td class="memItemRight" valign="bottom"><b>$bdd</b></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Classe utilitaire permettant de gérer les recettes de la base (CRUD).</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_recette.html">Recette</a></dd></dl>
-<dl class="section author"><dt>Author</dt><dd>Julien Ait azzouzene <a href="#" onclick="location.href='mai'+'lto:'+'jul'+'ie'+'n.a'+'it'+'azz'+'ou'+'zen'+'e@'+'etu'+'.u'+'nic'+'ae'+'n.f'+'r'; return false;">julie<span class="obfuscator">.nosp@m.</span>n.ai<span class="obfuscator">.nosp@m.</span>tazzo<span class="obfuscator">.nosp@m.</span>uzen<span class="obfuscator">.nosp@m.</span>e@etu<span class="obfuscator">.nosp@m.</span>.uni<span class="obfuscator">.nosp@m.</span>caen.<span class="obfuscator">.nosp@m.</span>fr</a> </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Julien Ait azzouzene <a href="#" onclick="location.href='mai'+'lto:'+'jul'+'ie'+'n.a'+'it'+'azz'+'ou'+'zen'+'e@'+'etu'+'.u'+'nic'+'ae'+'n.f'+'r'; return false;">julie<span class="obfuscator">.nosp@m.</span>n.ai<span class="obfuscator">.nosp@m.</span>tazzo<span class="obfuscator">.nosp@m.</span>uzen<span class="obfuscator">.nosp@m.</span>e@etu<span class="obfuscator">.nosp@m.</span>.uni<span class="obfuscator">.nosp@m.</span>caen.<span class="obfuscator">.nosp@m.</span>fr</a>, Guilhem Saint Gaudin <a href="#" onclick="location.href='mai'+'lto:'+'gui'+'lh'+'em.'+'sa'+'int'+'-g'+'aud'+'in'+'@et'+'u.'+'uni'+'ca'+'en.'+'fr'; return false;">guilh<span class="obfuscator">.nosp@m.</span>em.s<span class="obfuscator">.nosp@m.</span>aint-<span class="obfuscator">.nosp@m.</span>gaud<span class="obfuscator">.nosp@m.</span>in@et<span class="obfuscator">.nosp@m.</span>u.un<span class="obfuscator">.nosp@m.</span>icaen<span class="obfuscator">.nosp@m.</span>.fr</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6025b6a523403a33ff7e0a76d88c051f" name="a6025b6a523403a33ff7e0a76d88c051f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6025b6a523403a33ff7e0a76d88c051f">&#9670;&#160;</a></span>creerRecette()</h2>
@@ -158,7 +160,7 @@ PDO&#160;</td><td class="memItemRight" valign="bottom"><b>$bdd</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Insert une recette dans la base de données. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Insère une recette dans la base de données. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="class_recette.html">Recette</a></td><td class="paramname">$recette</td><td></td></tr>
   </table>
@@ -292,6 +294,31 @@ PDO&#160;</td><td class="memItemRight" valign="bottom"><b>$bdd</b></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>?<a class="el" href="class_recette.html">Recette</a> </dd></dl>
+
+</div>
+</div>
+<a id="a4eeb318aee7d66c5d2dbb6b6e1140e9c" name="a4eeb318aee7d66c5d2dbb6b6e1140e9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eeb318aee7d66c5d2dbb6b6e1140e9c">&#9670;&#160;</a></span>getRecetteModifiee()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getRecetteModifiee </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Renvoie la version modifiée d'une recette si elle existe </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$id</td><td>l'id de la recette </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>?<a class="el" href="class_recette_modifiee.html">RecetteModifiee</a> </dd></dl>
 
 </div>
 </div>
