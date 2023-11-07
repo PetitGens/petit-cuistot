@@ -33,8 +33,8 @@ $connecte = ConnexionController::estConnecte();
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#" style="width: 200px;height: 70px;padding: 0px;margin: 0px;"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon" style="transform: translate(0px);width: inherit;height: inherit;margin: 5mm;background: transparent;margin-right: 5mm;"><img src="assets/img/Logo.png" style="width: inherit;display: flex;position: static;overflow: auto;height: inherit;margin: initial;"></span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-5" style="font-family: sans-serif;font-size: 25px;">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Nos recettes</a></li>
+                    <li class="nav-item"><a class="nav-link active" href=".">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href=".?action=listeRecettes">Nos recettes</a></li>
                     <li class="nav-item"></li>
                     <li class="nav-item dropdown show"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#">Filtres&nbsp;</a>
                         <div class="dropdown-menu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light"><a class="dropdown-item" href="#" data-bs-theme="light"><span style="color: rgb(42, 57, 144); background-color: rgba(42, 57, 144, 0);">Catégories</span></a><a class="dropdown-item" href="#"><span style="color: rgb(42, 57, 144);">Titre</span></a><a class="dropdown-item" href="#"><span style="color: rgb(42, 57, 144);">Ingredients</span></a></div>
@@ -77,5 +77,6 @@ $connecte = ConnexionController::estConnecte();
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Simple-Slider-swiper-bundle.min.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
+    <?php if(isset($script)) echo $script ?>
 </body>
 </html>

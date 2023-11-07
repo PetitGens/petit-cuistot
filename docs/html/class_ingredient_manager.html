@@ -103,8 +103,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3ee17085a1e0dbe24e05f504147deb8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a034041fe551271ed488a43306951af6a" id="r_a034041fe551271ed488a43306951af6a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ingredient_manager.html#a034041fe551271ed488a43306951af6a">getParRecette</a> (string $idRecette)</td></tr>
 <tr class="separator:a034041fe551271ed488a43306951af6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b7c828a87e162a8847fd9c6334b423e" id="r_a1b7c828a87e162a8847fd9c6334b423e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ingredient_manager.html#a1b7c828a87e162a8847fd9c6334b423e">getParRecetteModifiee</a> (string $idRecette)</td></tr>
+<tr class="separator:a1b7c828a87e162a8847fd9c6334b423e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80364e2808c9deccaa013c1b553c2bc7" id="r_a80364e2808c9deccaa013c1b553c2bc7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ingredient_manager.html#a80364e2808c9deccaa013c1b553c2bc7">creerIngredient</a> (<a class="el" href="class_ingredient.html">Ingredient</a> $ingredient)</td></tr>
 <tr class="separator:a80364e2808c9deccaa013c1b553c2bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93aa0ff32a40ce8a1d0a4f868ff13af4" id="r_a93aa0ff32a40ce8a1d0a4f868ff13af4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ingredient_manager.html#a93aa0ff32a40ce8a1d0a4f868ff13af4">ajouterIngredientARecette</a> (<a class="el" href="class_ingredient.html">Ingredient</a> $ingredient, string $idRecette)</td></tr>
+<tr class="separator:a93aa0ff32a40ce8a1d0a4f868ff13af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d59164a3ab202e72a1b5da5b34d80cd" id="r_a3d59164a3ab202e72a1b5da5b34d80cd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ingredient_manager.html#a3d59164a3ab202e72a1b5da5b34d80cd">ajouterIngredientARecetteModifiee</a> (<a class="el" href="class_ingredient.html">Ingredient</a> $ingredient, string $idRecette)</td></tr>
+<tr class="separator:a3d59164a3ab202e72a1b5da5b34d80cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63b24fd789b8377bcb85185415c55d76" id="r_a63b24fd789b8377bcb85185415c55d76"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ingredient_manager.html#a63b24fd789b8377bcb85185415c55d76">supprimerIngredientDeRecette</a> (<a class="el" href="class_ingredient.html">Ingredient</a> $ingredient, string $idRecette)</td></tr>
+<tr class="separator:a63b24fd789b8377bcb85185415c55d76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ec5669b70f216dfe5c486f1e29ddcfc" id="r_a8ec5669b70f216dfe5c486f1e29ddcfc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ingredient_manager.html#a8ec5669b70f216dfe5c486f1e29ddcfc">supprimerIngredientDeRecetteModifiee</a> (<a class="el" href="class_ingredient.html">Ingredient</a> $ingredient, string $idRecette)</td></tr>
+<tr class="separator:a8ec5669b70f216dfe5c486f1e29ddcfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a082748790d68cdd9dfe9efcde602cfc3" id="r_a082748790d68cdd9dfe9efcde602cfc3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ingredient_manager.html#a082748790d68cdd9dfe9efcde602cfc3">supprimerIngredient</a> (<a class="el" href="class_ingredient.html">Ingredient</a> $ingredient)</td></tr>
 <tr class="separator:a082748790d68cdd9dfe9efcde602cfc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_manager"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_manager')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_manager.html">Manager</a></td></tr>
@@ -127,6 +137,77 @@ PDO&#160;</td><td class="memItemRight" valign="bottom"><b>$bdd</b></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_ingredient.html">Ingredient</a></dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Julien Ait azzouzene <a href="#" onclick="location.href='mai'+'lto:'+'jul'+'ie'+'n.a'+'it'+'azz'+'ou'+'zen'+'e@'+'etu'+'.u'+'nic'+'ae'+'n.f'+'r'; return false;">julie<span class="obfuscator">.nosp@m.</span>n.ai<span class="obfuscator">.nosp@m.</span>tazzo<span class="obfuscator">.nosp@m.</span>uzen<span class="obfuscator">.nosp@m.</span>e@etu<span class="obfuscator">.nosp@m.</span>.uni<span class="obfuscator">.nosp@m.</span>caen.<span class="obfuscator">.nosp@m.</span>fr</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a93aa0ff32a40ce8a1d0a4f868ff13af4" name="a93aa0ff32a40ce8a1d0a4f868ff13af4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93aa0ff32a40ce8a1d0a4f868ff13af4">&#9670;&#160;</a></span>ajouterIngredientARecette()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ajouterIngredientARecette </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_ingredient.html">Ingredient</a>&#160;</td>
+          <td class="paramname"><em>$ingredient</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$idRecette</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Ajoute un ingrédient à une recette. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="class_ingredient.html">Ingredient</a></td><td class="paramname">$ingredient</td><td>l'ingrédient à ajouter </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$idRecette</td><td>l'id de la recette </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3d59164a3ab202e72a1b5da5b34d80cd" name="a3d59164a3ab202e72a1b5da5b34d80cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d59164a3ab202e72a1b5da5b34d80cd">&#9670;&#160;</a></span>ajouterIngredientARecetteModifiee()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ajouterIngredientARecetteModifiee </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_ingredient.html">Ingredient</a>&#160;</td>
+          <td class="paramname"><em>$ingredient</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$idRecette</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Ajoute un ingrédient à une recette modifiée. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="class_ingredient.html">Ingredient</a></td><td class="paramname">$ingredient</td><td>l'ingrédient à ajouter </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$idRecette</td><td>l'id de la recette </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_recette_modifiee.html">RecetteModifiee</a> </dd></dl>
+
+</div>
+</div>
 <a id="a80364e2808c9deccaa013c1b553c2bc7" name="a80364e2808c9deccaa013c1b553c2bc7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a80364e2808c9deccaa013c1b553c2bc7">&#9670;&#160;</a></span>creerIngredient()</h2>
 
@@ -142,7 +223,7 @@ PDO&#160;</td><td class="memItemRight" valign="bottom"><b>$bdd</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Insert l'ingredient donné en paramètre dans la base de données.</p>
+<p>Insère l'ingredient donné en paramètre dans la base de données.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="class_ingredient.html">Ingredient</a></td><td class="paramname">$ingredient</td><td></td></tr>
@@ -216,11 +297,38 @@ PDO&#160;</td><td class="memItemRight" valign="bottom"><b>$bdd</b></td></tr>
 <p>Renvoie tous les ingredients d'une recette.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$idRecette</td><td>id de la recette </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$idRecette</td><td>l'id de la recette </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+
+</div>
+</div>
+<a id="a1b7c828a87e162a8847fd9c6334b423e" name="a1b7c828a87e162a8847fd9c6334b423e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b7c828a87e162a8847fd9c6334b423e">&#9670;&#160;</a></span>getParRecetteModifiee()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getParRecetteModifiee </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$idRecette</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Renvoie tous les ingredients d'une recette modifiée.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$idRecette</td><td>l'id de la recette </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_recette_modifiee.html">RecetteModifiee</a> </dd></dl>
 
 </div>
 </div>
@@ -247,6 +355,77 @@ PDO&#160;</td><td class="memItemRight" valign="bottom"><b>$bdd</b></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a63b24fd789b8377bcb85185415c55d76" name="a63b24fd789b8377bcb85185415c55d76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63b24fd789b8377bcb85185415c55d76">&#9670;&#160;</a></span>supprimerIngredientDeRecette()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">supprimerIngredientDeRecette </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_ingredient.html">Ingredient</a>&#160;</td>
+          <td class="paramname"><em>$ingredient</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$idRecette</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retire un ingrédient d'une recette. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="class_ingredient.html">Ingredient</a></td><td class="paramname">$ingredient</td><td>l'ingrédient à enlever </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$idRecette</td><td>l'id de la recette </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8ec5669b70f216dfe5c486f1e29ddcfc" name="a8ec5669b70f216dfe5c486f1e29ddcfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ec5669b70f216dfe5c486f1e29ddcfc">&#9670;&#160;</a></span>supprimerIngredientDeRecetteModifiee()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">supprimerIngredientDeRecetteModifiee </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_ingredient.html">Ingredient</a>&#160;</td>
+          <td class="paramname"><em>$ingredient</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$idRecette</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retire un ingrédient d'une recette modifiée. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="class_ingredient.html">Ingredient</a></td><td class="paramname">$ingredient</td><td>l'ingrédient à enlever </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$idRecette</td><td>l'id de la recette </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_recette_modifiee.html">RecetteModifiee</a> </dd></dl>
 
 </div>
 </div>

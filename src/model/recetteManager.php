@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require_once 'src/model/manager.php';
 require_once 'src/model/recette.php';
+require_once 'src/model/recetteModifiee.php';
 require_once 'src/model/tag.php';
 require_once 'src/model/ingredient.php';
 require_once 'src/model/categorieManager.php';
@@ -58,6 +59,16 @@ class RecetteManager extends Manager {
         $ligne = $resultat[0];
 
         return self::recetteFromLigne($ligne);
+    }
+
+    /**
+     * Renvoie la version modifiée d'une recette si elle existe
+     * @param string $id l'id de la recette
+     * @return ?RecetteModifiee
+     */
+    public function getRecetteModifiee(string $id) : ?RecetteModifiee{
+        //TODO écrire la méthode
+        throw new Exception('not implemented yet');
     }
 
     /**
@@ -232,6 +243,7 @@ class RecetteManager extends Manager {
      * @return void
      */
     public function majRecette(Recette $recette): void{
+        //TODO écrire la méthode
         throw new Exception('not implemented yet');
     }
 
@@ -255,6 +267,7 @@ class RecetteManager extends Manager {
      * @return void
      */
     public function soumettreModification(Recette $recette): void{
+        //TODO écrire la méthode
         throw new Exception('not implemented yet');
     }
 
@@ -265,6 +278,7 @@ class RecetteManager extends Manager {
      * @return void
      */
     public function validerRecette(Recette $recette): void{
+        //TODO écrire la méthode
         throw new Exception('not implemented yet');
     }
 
@@ -273,6 +287,7 @@ class RecetteManager extends Manager {
      * @param Recette $recette la recette à valider
      */
     public function validerModification(Recette $recette): void{
+        //TODO écrire la méthode
         throw new Exception('not implemented yet');
     }
 }
