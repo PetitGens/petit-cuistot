@@ -7,3 +7,7 @@ footer{
   width: auto;
 }
 
+.hidden{
+  display: none;
+}
+
