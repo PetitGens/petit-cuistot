@@ -13,7 +13,8 @@ require_once 'src/controllers/accueil.php';
 try{
     // Si 'action' n'est pas défini, on charge la page d'accueil
     if(! isset($_GET['action']) || empty($_GET['action'])){
-        pageAccueil(3);
+        $accueil = new AccueilControleur();
+        $accueil->executer();
         return;
     }
 
