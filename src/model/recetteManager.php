@@ -36,13 +36,13 @@ class RecetteManager extends Manager {
     }
     public function getRecettesFiltre(string $Filtre,string $VALUE): array{
         switch($Filtre) {
-            default: throw(new Exception);
+            default: throw(new Exception("filtre inexistant"));
             break;
             case tag: $requete = "SELECT * FROM CUI_RECETTE WHERE CUI_RECETTE.REC_ID IN(SELECT REC_ID FROM CUI_ETIQUETTAGE WHERE CUI_ETIQUETTAGE.TAG_ID IN (SELECT TAG_ID FROM CUI_TAG WHERE CUI_TAG.TAG_INTITULE='{$VALUE}'))";
             break;
-            case ingredient : "SELECT * FROM CUI_RECETTE WHERE CUI_RECETTE.REC_ID IN(SELECT REC_ID FROM CUI_INGREDIENT WHERE ING_ID IN (SELECT ING_ID FROM CUI_INGREDIENT WHERE ING_INTITULE='{$VALUE}'))";
+            case ingredient :  $requete = "SELECT * FROM CUI_RECETTE WHERE CUI_RECETTE.REC_ID IN(SELECT REC_ID FROM CUI_INGREDIENT WHERE ING_ID IN (SELECT ING_ID FROM CUI_INGREDIENT WHERE ING_INTITULE='{$VALUE}'))";
             break;
-            case nom : "SELECT * FROM CUI_RECETTE WHERE REC_TITRE LIKE ('%{$VALUE}%')";
+            case nom :  $requete = "SELECT * FROM CUI_RECETTE WHERE REC_TITRE LIKE ('%{$VALUE}%')";
         }
         $resultat = self::projectionBdd($requete);
         $recettes = [];
