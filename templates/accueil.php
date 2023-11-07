@@ -4,16 +4,16 @@
 // Une vue se contente de récupérer les variables qu'on lui donne est de formatter la page html
 
 
-include_once 'src/model/recette.php';
-include_once 'src/model/recetteManager.php';
+require_once 'src/model/recette.php';
 
 require_once 'templates/carteRecette.php';
+
 
 // Le code HTML sera placé en énorme majorité dans les vues et le layout
 
 
 
-$titre = 'ptitcuistot';
+$titre = "P'tit Cuistot";
 
 // ob_start crée un buffer qui va récupérer tout ce qui est censé être affiché (echo + HTML) 
 ob_start();
@@ -24,10 +24,9 @@ ob_start();
                 <div style="background: transparent;text-align: center;"><img width="480" height="480" style="padding-top: 0px;width: 60%;height: 200%;min-width: 200px;min-height: 200px;margin: 20px;display: inline-grid;margin-right: auto;margin-left: auto;" src="assets/img/Pticuisto.png">
                     <div style="display: inline-block;">
                         <h1 style="font-size: 50px;color: white;">Edito</h1>
-                        <p style="font-size: 28px;color: white;font-family: Caveat, serif;"><strong>Il y a quelque chose de magique à voir nos enfants se lancer dans la cuisine avec enthousiasme, arborant fièrement leur tablier, et préparant des mets délicieux avec une innocence toute spéciale. C'est précisément cette magie que nous souhaitons capturer ici, sur notre site internet dédié aux talents culinaires en herbe.<br>
-                            <br>Notre site célèbre la créativité des jeunes chefs en herbe. Vous y trouverez une variété de recettes concoctées par des enfants, partageant ainsi leur passion pour la cuisine. Des plats simples aux desserts gourmands, explorez ces délices et laissez-vous inspirer par nos petits cuistots. Rejoignez-nous pour célébrer l'art culinaire des enfants !<br>
-                            <br>À vos fourneaux,
-                            <br><br>L'équipe de "Petits Cuistots".</strong></p>
+                        <strong><div style="font-size: 28px;color: white;font-family: Caveat, serif;">
+                            <?= $edito ?>
+                        </div></strong>
                     </div>
                 </div>
             </div>
@@ -59,6 +58,8 @@ ob_start();
 
 // On peut récupérer le contenu du buffer comme ça :
 $contenu = ob_get_clean();
+
+//echo(htmlspecialchars($contenu));
 
 // On inclut le layout pour afficher notre belle page
 require 'templates/layout.php';
