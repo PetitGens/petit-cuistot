@@ -278,17 +278,40 @@ class RecetteManager extends Manager {
      * @return void
      */
     public function majRecette(Recette $recette): void{
-        //TODO écrire la méthode
-        throw new Exception('not implemented yet');
+        $requete = 
+        "UPDATE CUI_RECETTE SET
+        REC_TITRE = ?,
+        REC_CONTENU = ?,
+        REC_RESUME = ?,
+        REC_IMAGE = ?,
+        REC_DATE_MODIFICATION = NOW(),
+        CAT_CODE = ?,
+        WHERE ID = ?";
+
+        $codeCategorie = (new CategorieManager)->getCodeCategorie($recette->getCategorie());
+        if(is_null($codeCategorie)){
+            throw new InvalidArgumentException("Cette catégorie n'existe pas : ".$recette->getCategorie());
+        }
+
+        $params = [
+            $recette->getTitre(),
+            $recette->getContenu(),
+            $recette->getResume(),
+            $recette->getImage(),
+            $codeCategorie,
+            $recette->getId()
+        ];
+
+        if(! self::requetePrepare($requete, $params)){
+            throw new Exception("Échec de la mise à jour de la recette.");
+        }
     }
 
     /**
      * Supprime une recette de la base.
      * @param Recette $recette la recette à supprimer
      */
-    public function supprimerRecette(Recette $recette): void{
-        //TODO supprimer les tags et ingrédients de la recette modifiée
-        
+    public function supprimerRecette(Recette $recette): void{        
         $recetteModifiee = self::getRecetteModifiee($recette->getId());
 
         if($recetteModifiee){
@@ -328,31 +351,66 @@ class RecetteManager extends Manager {
      * Soumet une recette modifiée à validation pour un administrateur.
      * La recette modifiée sera stocké dans une autre table en attendant d'être validé,
      * elle remplacera alors l'ancienne version dans la table principale.
-     * @param Recette $recette la recette modifiée
+     * @param Recette $recetteModifiee la recette modifiée
      * @return void
      */
-    public function soumettreModification(Recette $recette): void{
-        //TODO écrire la méthode
-        throw new Exception('not implemented yet');
+    public function soumettreModification(RecetteModifiee $recetteModifiee): void{
+        $requete = 
+        "INSERT INTO CUI_RECETTE_MODIFIEE 
+        (REC_ID, REC_MOD_TITRE, REC_MOD_CONTENU, REC_MOD_RESUME, REC_MOD_IMAGE, REC_MOD_DATE_MODIFICATION, CAT_CODE)
+        VALUES (?, ?, ?, ?, ?, NOW(), ?)";
+
+        $codeCategorie = (new CategorieManager)->getCodeCategorie($recetteModifiee->getCategorie());
+
+        $params = [
+            $recetteModifiee->getId(),
+            $recetteModifiee->getTitre(),
+            $recetteModifiee->getContenu(),
+            $recetteModifiee->getResume(),
+            $recetteModifiee->getImage(),
+            $codeCategorie
+        ];
+
+        if(! self::requetePrepare($requete, $params)){
+            throw new Exception("Échec de la création de recette modifiée.");
+        }
+
+        // Changement du statut de la recette
+        $requete = "UPDATE CUI_RECETTE SET STATUT = 'M' WHERE REC_ID = ?";
+        if(! self::requetePrepare($requete, [$recetteModifiee->getId()])){
+            throw new Exception("Échec de la création de recette modifiée.");
+        }
+
+        // Copie des tags et ingrédients
+        $recetteBase = self::getRecette($recetteModifiee->getId());
+
+        foreach($recetteBase->getIngredients() as $ingredient){
+            $recetteModifiee->ajouterIngredient($ingredient);
+        }
+
+        foreach($recetteBase->getTags() as $tag){
+            $recetteModifiee->ajouterTag($tag);
+        }
     }
 
     /**
-     * Valide une recette crée par un éditeur.
+     * Valide une recette créée par un éditeur.
      * Elle sera alors visible par tous les internautes.
      * @param Recette $recette la recette à valider
      * @return void
      */
     public function validerRecette(Recette $recette): void{
-        //TODO écrire la méthode
-        throw new Exception('not implemented yet');
+        $requete = "UPDATE CUI_RECETTE SET STATUT='V' WHERE REC_ID = ?";
+        if(! self::requetePrepare($requete, [$recette->getId()])){
+            throw new Exception("Échec de l'ajout de la validation de la recette.");
+        }
     }
 
     /**
      * Valide une modification de recette.
      * @param Recette $recette la recette à valider
      */
-    public function validerModification(Recette $recette): void{
-        //TODO écrire la méthode
-        throw new Exception('not implemented yet');
+    public function validerModification(RecetteModifiee $recette): void{
+        
     }
 }

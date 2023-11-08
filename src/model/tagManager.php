@@ -160,8 +160,19 @@ class TagManager extends Manager{
      * @see RecetteModifiee
      */
     public function ajouterTagARecetteModifiee(Tag $tag, string $idRecette){
-        //TODO écrire la méthode
-        throw new Exception("not implemented yet");
+        $tagEnBase = self::getTagParNom($tag->getIntitule());
+        if(! $tagEnBase){
+            self::creerTag($tag);
+            $tagEnBase = self::getTagParNom($tag->getIntitule());
+        }
+
+        $requete = 
+        "INSERT INTO CUI_ETIQUETTAGE_MOD (REC_ID, TAG_ID)
+        VALUES (?, ?)";
+
+        if(! self::requetePrepare($requete, [$idRecette, $tagEnBase->getId()])){
+            throw new Exception("échec de l'ajout de tag");
+        }
     }
 
     /**
@@ -192,8 +203,19 @@ class TagManager extends Manager{
      * @see RecetteModifiee
      */
     public function supprimerTagDeRecetteModifiee(Tag $tag, string $idRecette){
-        //TODO écrire la méthode
-        throw new Exception("not implemented yet");
+        $tagEnBase = self::getTagParNom($tag->getIntitule());
+        if(! $tagEnBase){
+            self::creerTag($tag);
+            $tagEnBase = self::getTagParNom($tag->getIntitule());
+        }
+
+        $requete = 
+        "DELETE FROM CUI_ETIQUETTAGE_MOD 
+        WHERE REC_ID = ? AND TAG_ID = ?";
+
+        if(! self::requetePrepare($requete, [$idRecette, $tagEnBase->getId()])){
+            throw new Exception("échec de la suppression du tag de la recette");
+        }
     }
         
     /**
