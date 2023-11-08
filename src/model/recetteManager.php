@@ -39,6 +39,26 @@ class RecetteManager extends Manager {
         return new Recette($titre, $contenu, $resume, $image, $statut, $idAuteur, $categorie, $id, $pseudoAuteur, $date_creation, $date_modification);
     }
 
+    private function recetteModifieeFromLigne(array $ligne): RecetteModifiee{
+        $id = strval($ligne['REC_ID']);
+        $titre = $ligne['REC_MOD_TITRE'];
+        $resume = $ligne['REC_MOD_RESUME'];
+        $contenu = $ligne['REC_MOD_CONTENU'];
+        $image = $ligne['REC_MOD_IMAGE'];
+        $date_creation = $ligne['REC_DATE_CREATION'];
+        $statut = 'M';
+        $categorie = $ligne['CAT_INTITULE'];
+        $idAuteur = strval($ligne['UTIL_ID']);
+        $pseudoAuteur = $ligne['UTIL_PSEUDO'];
+
+        $date_modification = $ligne['REC_MOD_DATE_MODIFICATION'];
+        if(is_null($date_modification)){
+            $date_modification = '';
+        }
+
+        return new RecetteModifiee($titre, $contenu, $resume, $image, $statut, $idAuteur, $categorie, $id, $pseudoAuteur, $date_creation, $date_modification);
+    }
+
     /**
      * Renvoie une recette en fonction de son id.
      * @param string $id
@@ -67,8 +87,23 @@ class RecetteManager extends Manager {
      * @return ?RecetteModifiee
      */
     public function getRecetteModifiee(string $id) : ?RecetteModifiee{
-        //TODO écrire la méthode
-        throw new Exception('not implemented yet');
+        $requete = 
+        "SELECT REC_ID, REC_MOD_TITRE, REC_MOD_CONTENU, REC_MOD_RESUME, REC_MOD_IMAGE, REC_MOD_DATE_MODIFICATION,
+        CUI_RECETTE_MODIFIEE.CAT_CODE CAT_CODE, UTIL_ID
+        FROM CUI_RECETTE_MODIFIEE
+        JOIN CUI_RECETTE USING(REC_ID)
+        JOIN CUI_CATEGORIE ON CUI_CATEGORIE.CAT_CODE = CUI_RECETTE_MODIFIEE.CAT_CODE
+        JOIN CUI_UTILISATEUR USING (UTIL_ID)
+        WHERE rec_id='1'";
+        $resultat = self::projectionBdd($requete);
+        
+        if(! isset($resultat[0])) {
+            return null;
+        }
+
+        $ligne = $resultat[0];
+
+        return self::recetteModifieeFromLigne($ligne);
     }
 
     /**
@@ -252,6 +287,36 @@ class RecetteManager extends Manager {
      * @param Recette $recette la recette à supprimer
      */
     public function supprimerRecette(Recette $recette): void{
+        //TODO supprimer les tags et ingrédients de la recette modifiée
+        
+        $recetteModifiee = self::getRecetteModifiee($recette->getId());
+
+        if($recetteModifiee){
+            // Suppression des tags et des ingrédients
+            foreach($recetteModifiee->getTags() as $tag){
+                $recetteModifiee->supprimerTag($tag);
+            }
+
+            foreach($recetteModifiee->getIngredients() as $ingredient){
+                $recetteModifiee->supprimerIngredient($ingredient);
+            }
+
+            // Suppression de la recette modifiée
+            $requete = "DELETE FROM CUI_RECETTE_MODIFIEE WHERE REC_ID = ?";
+            if(self::requetePrepare($requete, [$recette->getId()]) != 1){
+                throw new Exception("Échec de la suppression de la recette.");
+            }
+        }
+
+        // Suppression des tags et des ingrédients
+        foreach($recette->getTags() as $tag){
+            $recette->supprimerTag($tag);
+        }
+
+        foreach($recette->getIngredients() as $ingredient){
+            $recette->supprimerIngredient($ingredient);
+        }
+
         $requete = "DELETE FROM CUI_RECETTE WHERE REC_ID = ?";
 
         if(self::requetePrepare($requete, [$recette->getId()]) != 1){

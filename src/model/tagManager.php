@@ -40,6 +40,16 @@ class TagManager extends Manager{
         $ligne = $resultat[0];
         return $this->tagFromLigne($ligne);
     }
+
+    public function getTagParNom(string $nom): ?Tag{
+        $resultat = $this->projectionBdd("select TAG_ID, TAG_INTITULE, TAG_DESCRIPTION from CUI_TAG where lower(TAG_INTITULE) = '$nom'");
+        if(empty($resultat)){
+            return null;
+        }
+
+        $ligne = $resultat[0];
+        return $this->tagFromLigne($ligne);
+    }
         
     /**
      * Renvoie tous les tags.
@@ -127,8 +137,19 @@ class TagManager extends Manager{
      * @param string $idRecette l'id de la recette
      */
     public function ajouterTagARecette(Tag $tag, string $idRecette){
-        //TODO écrire la méthode
-        throw new Exception("not implemented yet");
+        $tagEnBase = self::getTagParNom($tag->getIntitule());
+        if(! $tagEnBase){
+            self::creerTag($tag);
+            $tagEnBase = self::getTagParNom($tag->getIntitule());
+        }
+
+        $requete = 
+        "INSERT INTO CUI_ETIQUETTAGE (REC_ID, TAG_ID)
+        VALUES (?, ?)";
+
+        if(! self::requetePrepare($requete, [$idRecette, $tagEnBase->getId()])){
+            throw new Exception("échec de l'ajout de tag");
+        }
     }
 
     /**
@@ -149,8 +170,19 @@ class TagManager extends Manager{
      * @param string $idRecette l'id de la recette
      */
     public function supprimerTagDeRecette(Tag $tag, string $idRecette){
-        //TODO écrire la méthode
-        throw new Exception("not implemented yet");
+        $tagEnBase = self::getTagParNom($tag->getIntitule());
+        if(! $tagEnBase){
+            self::creerTag($tag);
+            $tagEnBase = self::getTagParNom($tag->getIntitule());
+        }
+
+        $requete = 
+        "DELETE FROM CUI_ETIQUETTAGE 
+        WHERE REC_ID = ? AND TAG_ID = ?";
+
+        if(! self::requetePrepare($requete, [$idRecette, $tagEnBase->getId()])){
+            throw new Exception("échec de la suppression du tag de la recette");
+        }
     }
 
     /**
