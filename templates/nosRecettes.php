@@ -20,7 +20,7 @@ function afficherListeRecettes($recettes){
             <div class="row mb-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <h2>Nos recettes</h2>
-                    <p class="w-lg-50">Les recettes pour vos p'tits gloutons, certifiées savoureux par notre équipe de cuistots du dimanche</p>
+                    <p class="w-lg-50">Les recettes pour vos p'tits gloutons, certifiées savoureuses par notre équipe de cuistots du dimanche</p>
                 </div>
             </div>
             <div class="row gy-4 row-cols-1 row-cols-md-2" id="conteneurRecette">
