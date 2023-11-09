@@ -15,6 +15,12 @@ STR_TO_DATE('2023-10-16 17:48:48', '%Y-%m-%d %H:%i:%s'),
 'A'
 );
 
+INSERT INTO `CUI_UTILISATEUR` (`UTIL_PSEUDO`, `UTIL_MDP`, `UTIL_EMAIL`, `UTIL_NOM`, `UTIL_PRENOM`, `UTIL_DATE_INSCRIPTION`, `UTIL_TYPE`, `UTIL_STATUT`) 
+VALUES 
+('test', 
+'$2y$10$KdMnkhAn385H2QYaQy.DvOa8zTpq0X.RigK3uLKY9k60bwHPUJhGC', 
+'test@test.fr', 'Test', 'Jean', '2023-11-05 12:18:13', 'E', 'A');
+
 -- -------TAG------------- --
 
 INSERT INTO CUI_TAG(TAG_INTITULE, TAG_DESCRIPTION)
