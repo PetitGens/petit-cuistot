@@ -13,7 +13,7 @@ require_once 'src/controllers/pageRecette.php';
 require_once 'src/controllers/pageConnexion.php';
 require_once 'src/controllers/connexion.php';
 
-try{
+//try{
     session_start();
 
     // Si 'action' n'est pas défini, on charge la page d'accueil
@@ -58,8 +58,8 @@ try{
     }
 
     $controleur->executer();
-}
+/*}
 catch(Exception $e){
     $messageErreur = $e->getMessage();
     require 'templates/erreur.php';
-}
+}*/

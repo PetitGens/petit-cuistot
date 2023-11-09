@@ -89,12 +89,12 @@ class RecetteManager extends Manager {
     public function getRecetteModifiee(string $id) : ?RecetteModifiee{
         $requete = 
         "SELECT REC_ID, REC_MOD_TITRE, REC_MOD_CONTENU, REC_MOD_RESUME, REC_MOD_IMAGE, REC_MOD_DATE_MODIFICATION,
-        CUI_RECETTE_MODIFIEE.CAT_CODE CAT_CODE, UTIL_ID
+        CAT_INTITULE, UTIL_ID, UTIL_PSEUDO, REC_DATE_CREATION
         FROM CUI_RECETTE_MODIFIEE
         JOIN CUI_RECETTE USING(REC_ID)
         JOIN CUI_CATEGORIE ON CUI_CATEGORIE.CAT_CODE = CUI_RECETTE_MODIFIEE.CAT_CODE
         JOIN CUI_UTILISATEUR USING (UTIL_ID)
-        WHERE rec_id='1'";
+        WHERE REC_ID='$id'";
         $resultat = self::projectionBdd($requete);
         
         if(! isset($resultat[0])) {
@@ -131,6 +131,7 @@ class RecetteManager extends Manager {
      * Renvoie un certain nombre de recettes triés par ordre chronologiques.
      * Par exemple, appelées avec la valeur 5, cette méthode 
      * renvoie les 5 dernières recettes.
+     * Ne renvoie que les recettes validées.
      * @param int $nombre le nombre de recettes à renvoyer
      * @return array un tableau d'objets Recette
      */
@@ -139,6 +140,7 @@ class RecetteManager extends Manager {
         "SELECT * FROM CUI_RECETTE 
         JOIN CUI_CATEGORIE USING (CAT_CODE)
         JOIN CUI_UTILISATEUR USING (UTIL_ID)
+        WHERE REC_STATUT = 'V' OR REC_STATUT = 'M'
         ORDER BY REC_DATE_CREATION DESC LIMIT $nombre";
 
         $resultat = self::projectionBdd($requete);
@@ -285,8 +287,8 @@ class RecetteManager extends Manager {
         REC_RESUME = ?,
         REC_IMAGE = ?,
         REC_DATE_MODIFICATION = NOW(),
-        CAT_CODE = ?,
-        WHERE ID = ?";
+        CAT_CODE = ?
+        WHERE REC_ID = ?";
 
         $codeCategorie = (new CategorieManager)->getCodeCategorie($recette->getCategorie());
         if(is_null($codeCategorie)){
@@ -315,21 +317,10 @@ class RecetteManager extends Manager {
         $recetteModifiee = self::getRecetteModifiee($recette->getId());
 
         if($recetteModifiee){
-            // Suppression des tags et des ingrédients
-            foreach($recetteModifiee->getTags() as $tag){
-                $recetteModifiee->supprimerTag($tag);
-            }
-
-            foreach($recetteModifiee->getIngredients() as $ingredient){
-                $recetteModifiee->supprimerIngredient($ingredient);
-            }
-
-            // Suppression de la recette modifiée
-            $requete = "DELETE FROM CUI_RECETTE_MODIFIEE WHERE REC_ID = ?";
-            if(self::requetePrepare($requete, [$recette->getId()]) != 1){
-                throw new Exception("Échec de la suppression de la recette.");
-            }
+            self::supprimerRecetteModifiee($recetteModifiee);
         }
+
+        $recetteModifiee = self::getRecetteModifiee($recette->getId());
 
         // Suppression des tags et des ingrédients
         foreach($recette->getTags() as $tag){
@@ -344,6 +335,23 @@ class RecetteManager extends Manager {
 
         if(self::requetePrepare($requete, [$recette->getId()]) != 1){
             throw new Exception("Échec de la suppression de recette.");
+        }
+    }
+
+    public function supprimerRecetteModifiee(RecetteModifiee $recetteModifiee){
+        // Suppression des tags et des ingrédients
+        foreach($recetteModifiee->getTags() as $tag){
+            $recetteModifiee->supprimerTag($tag);
+        }
+
+        foreach($recetteModifiee->getIngredients() as $ingredient){
+            $recetteModifiee->supprimerIngredient($ingredient);
+        }
+
+        // Suppression de la recette modifiée
+        $requete = "DELETE FROM CUI_RECETTE_MODIFIEE WHERE REC_ID = ?";
+        if(self::requetePrepare($requete, [$recetteModifiee->getId()]) != 1){
+            throw new Exception("Échec de la suppression de la recette modifiée.");
         }
     }
 
@@ -376,9 +384,9 @@ class RecetteManager extends Manager {
         }
 
         // Changement du statut de la recette
-        $requete = "UPDATE CUI_RECETTE SET STATUT = 'M' WHERE REC_ID = ?";
+        $requete = "UPDATE CUI_RECETTE SET REC_STATUT = 'M' WHERE REC_ID = ?";
         if(! self::requetePrepare($requete, [$recetteModifiee->getId()])){
-            throw new Exception("Échec de la création de recette modifiée.");
+            throw new Exception("Échec de la mide à jour du statut de la recette modifiée.");
         }
 
         // Copie des tags et ingrédients
@@ -400,7 +408,7 @@ class RecetteManager extends Manager {
      * @return void
      */
     public function validerRecette(Recette $recette): void{
-        $requete = "UPDATE CUI_RECETTE SET STATUT='V' WHERE REC_ID = ?";
+        $requete = "UPDATE CUI_RECETTE SET REC_STATUT='V' WHERE REC_ID = ?";
         if(! self::requetePrepare($requete, [$recette->getId()])){
             throw new Exception("Échec de l'ajout de la validation de la recette.");
         }
@@ -410,7 +418,76 @@ class RecetteManager extends Manager {
      * Valide une modification de recette.
      * @param Recette $recette la recette à valider
      */
-    public function validerModification(RecetteModifiee $recette): void{
-        
+    public function validerModification(RecetteModifiee $recetteModifiee): void{
+        $recette = new Recette(
+            $recetteModifiee->getTitre(),
+            $recetteModifiee->getContenu(),
+            $recetteModifiee->getResume(),
+            $recetteModifiee->getImage(),
+            'V',
+            $recetteModifiee->getIdAuteur(),
+            $recetteModifiee->getCategorie(),
+            $recetteModifiee->getId()
+        );
+
+        // Mise à jour des propriétés de la table Recette
+        self::majRecette($recette);
+
+        // Mise à jour des tags et ingrédients
+
+        $ingredientsRecette = $recette->getIngredients();
+        $ingredientsModifies = $recetteModifiee->getIngredients();
+
+        $tagsRecette = $recette->getTags();
+        $tagsModifies = $recetteModifiee->getTags();
+
+        foreach($ingredientsModifies as $ingredientModifie){
+            if(! self::contientIngredient($ingredientsRecette, $ingredientModifie)){
+                $recette->ajouterIngredient($ingredientModifie);
+            }
+        }
+        foreach($ingredientsRecette as $ingredientRecette){
+            if(! self::contientIngredient($ingredientsModifies, $ingredientRecette)){
+                $recette->supprimerIngredient($ingredientRecette);
+            }
+        }
+
+        foreach($tagsModifies as $tagModifie){
+            if(! self::contientTag($tagsRecette, $tagModifie)){
+                $recette->ajouterTag($tagModifie);
+            }
+        }
+        foreach($tagsRecette as $tagRecette){
+            if(! self::contientTag($tagsModifies, $tagRecette)){
+                $recette->supprimerTag($tagRecette);
+            }
+        }
+
+        // Suppression de la recette modifiée, 
+        // maintenant que la recette de base est mise à jour
+        self::supprimerRecetteModifiee($recetteModifiee);
+
+        // Rendre la recette valide à nouveau
+        self::validerRecette($recette);
+    }
+
+    private function contientIngredient(array $ingredients, Ingredient $ingredient): bool{
+        foreach($ingredients as $ingredientCourant){
+            if($ingredient->getIntitule() === $ingredientCourant->getIntitule()){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function contientTag(array $tags, Tag $tag): bool{
+        foreach($tags as $tagCourant){
+            if($tag->getIntitule() === $tagCourant->getIntitule()){
+                return true;
+            }
+        }
+
+        return false;
     }
 }
