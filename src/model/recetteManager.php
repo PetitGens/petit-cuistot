@@ -290,15 +290,23 @@ class RecetteManager extends Manager {
         //TODO écrire la méthode
         throw new Exception('not implemented yet');
     }
-    public function getRecettesFiltre(string $Filtre,string $VALUE): array{
+    public function getRecettesFiltre(string $Filtre,$VALUE): array{
+        $requete = '';
         switch($Filtre) {
             default: throw(new Exception("filtre inexistant"));
             break;
-            case tag: $requete = "SELECT * FROM CUI_RECETTE WHERE CUI_RECETTE.REC_ID IN(SELECT REC_ID FROM CUI_ETIQUETTAGE WHERE CUI_ETIQUETTAGE.TAG_ID IN (SELECT TAG_ID FROM CUI_TAG WHERE CUI_TAG.TAG_INTITULE='{$VALUE}'))";
+            case "tag": $requete = "SELECT * FROM CUI_RECETTE WHERE CUI_RECETTE.REC_ID IN(SELECT REC_ID FROM CUI_ETIQUETTAGE WHERE CUI_ETIQUETTAGE.TAG_ID IN (SELECT TAG_ID FROM CUI_TAG WHERE CUI_TAG.TAG_INTITULE='{$VALUE}'))";
             break;
-            case ingredient :  $requete = "SELECT * FROM CUI_RECETTE WHERE CUI_RECETTE.REC_ID IN(SELECT REC_ID FROM CUI_INGREDIENT WHERE ING_ID IN (SELECT ING_ID FROM CUI_INGREDIENT WHERE ING_INTITULE='{$VALUE}'))";
+            case "ingredient" :  $requete = "SELECT * FROM CUI_RECETTE WHERE CUI_RECETTE.REC_ID IN(SELECT REC_ID FROM CUI_COMPOSITION WHERE ING_ID IN (";
+            foreach ($VALUE as $item){
+                $requete=$requete."SELECT ING_ID FROM CUI_INGREDIENT WHERE ING_INTITULE='{$item}'";
+                if ($VALUE[count($VALUE)-1]!==$item){
+                    $requete=$requete."UNION";
+                }
+            }
+            $requete=$requete.")";
             break;
-            case nom :  $requete = "SELECT * FROM CUI_RECETTE WHERE REC_TITRE LIKE ('%{$VALUE}%')";
+            case "nom" :  $requete = "SELECT * FROM CUI_RECETTE WHERE REC_TITRE LIKE ('%{$VALUE}%')";
         }
         $resultat = self::projectionBdd($requete);
         $recettes = [];
