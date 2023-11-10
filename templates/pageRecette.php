@@ -13,17 +13,17 @@ function afficherPageRecette(Recette $recette){
     ?>
 
     <?php //TODO gérer les dimensions de l'image ?>
-    <div data-bss-parallax-bg="true" style="height: 500px;padding-top: 100px;padding-right: 10px;padding-left: 10px;background: url(<?=$recette->getImage()?>)">
-        <h1 style="width: 100%;margin-bottom: auto;text-align: center;height: auto;padding-top: 0;"><?=$recette->getTitre() ?></h1>
-        <p style="margin-top: 50px;margin-bottom: 10%;padding: 0px;width: auto;text-align: center;"><?=$recette->getResume() ?></p>
+    <div data-bss-bg="true" style="text-align:center;height: 500px;padding-top: 30px;padding-right: 10px;padding-left: 10px;background-image: url(<?=$recette->getImage()?>);background-repeat: no-repeat;background-size: contain;background-position: center">
+        <h1 style="margin:auto;margin-top: 20px;margin-bottom: 10%;padding: 10px;width: fit-content;text-align: center;background:rgba(192,192,192,0.75);border-radius: 5px;"><?=$recette->getTitre() ?></h1>
     </div>
+    <p style="margin:auto;margin-top: 10px;margin-bottom: 10px;padding: 10px;width: fit-content;text-align: center;background:rgba(192,192,192,0.75);border-radius: 5px;"><?=$recette->getResume() ?></p>
     <div class="row" style="width: inherit;padding-right: 4%;padding-left: 4%;">
         <div class="col">
             <section class="horitzontalScroll">
                 <?php
                     foreach ($recette->getIngredients() as $ingredient){
                 ?>
-                <a class="custlnk" href="#" style="width: auto;padding-right: 15px;padding-left: 15px;">
+                <a class="custlnk" style="width: auto;padding-right: 15px;padding-left: 15px;">
                     <div class="horitzontalScrollContent me-3 ms-2" style="width: 100%;margin: 0px;">
                         <div class="row" style="width: auto;">
                             <div class="col text-center" style="width: auto;padding: 0px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor" class="border rounded-circle p-2" style="width: 45px;height: 45px;background-color: rgba(201,201,201,0.61);font-size: 30px;">
