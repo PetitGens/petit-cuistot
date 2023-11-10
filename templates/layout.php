@@ -48,7 +48,7 @@ $connecte = ConnexionController::estConnecte();
                     if($connecte){
                         ?>
                         <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#" style="background: var(--bs-primary);border-radius: 22px;color: var(--bs-light-text-emphasis);">Profil&nbsp;<img src="assets/img/Pticuisto.png" style="width: 2em;height: 2em;"></a>
-                            <div class="dropdown-menu show" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);"><a class="dropdown-item" href="#">Mes recettes</a><a class="dropdown-item" href="#">Nouvelle Recette</a><a class="dropdown-item" href="#">Se Déconnecter</a></div>
+                            <div class="dropdown-menu show" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);"><a class="dropdown-item" href="#">Mes recettes</a><a class="dropdown-item" href="#">Nouvelle Recette</a><a class="dropdown-item" id="boutonDeconnexion" href="#">Se Déconnecter</a></div>
                         </li>
                         <?php
                     }
@@ -85,6 +85,7 @@ $connecte = ConnexionController::estConnecte();
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Simple-Slider-swiper-bundle.min.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
+    <script src="assets/js/deconnexion.js"></script>
     <?php if(isset($script)) echo $script ?>
 </body>
 </html>
