@@ -39,20 +39,28 @@ $connecte = ConnexionController::estConnecte();
                     <li class="nav-item dropdown show"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#">Filtres&nbsp;</a>
                         <div class="dropdown-menu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light"><a class="dropdown-item" href="#" data-bs-theme="light"><span style="color: rgb(42, 57, 144); background-color: rgba(42, 57, 144, 0);">Catégories</span></a><a class="dropdown-item" href="#"><span style="color: rgb(42, 57, 144);">Titre</span></a><a class="dropdown-item" href="#"><span style="color: rgb(42, 57, 144);">Ingredients</span></a></div>
                     </li>
-                </ul>
+
 
                 <?php //TODO Menu pour les utilisateurs connectés ; pour l'instant, on affiche juste Connecté... ?>
 
-                <a class="btn btn-primary ms-md-2" role="button" href="?action=pageConnexion" style="color: #ffffff;border-left-color: var(--bs-btn-border-color);box-shadow: 0px 0px var(--bs-light);font-size: 23px;">
+
                     <?php
                     if($connecte){
-                        echo 'Connecté';
+                        ?>
+                        <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#" style="background: var(--bs-primary);border-radius: 22px;color: var(--bs-light-text-emphasis);">Profil&nbsp;<img src="assets/img/Pticuisto.png" style="width: 2em;height: 2em;"></a>
+                            <div class="dropdown-menu show" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);"><a class="dropdown-item" href="#">Mes recettes</a><a class="dropdown-item" href="#">Nouvelle Recette</a><a class="dropdown-item" href="#">Se Déconnecter</a></div>
+                        </li>
+                        <?php
                     }
                     else{
-                        echo 'Se connecter';
+                        ?>
+                            <a class="btn btn-primary ms-md-2" role="button" href="?action=pageConnexion" style="color: #ffffff;border-left-color: var(--bs-btn-border-color);box-shadow: 0px 0px var(--bs-light);font-size: 23px;">
+                                Se connecter
+                            </a>
+                        <?php
                     }
                     ?>
-                </a>
+                </ul>
             </div>
         </div>
     </nav>
