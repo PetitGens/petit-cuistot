@@ -6,6 +6,7 @@ var class_recette_manager =
     [ "getParIngredients", "class_recette_manager.html#a9eda79f26b4a20db2e19991f4b9aec32", null ],
     [ "getParUtilisateur", "class_recette_manager.html#a49b8ebce482df330512f30bfb4c1dc10", null ],
     [ "getRecette", "class_recette_manager.html#a4ee8194d5fbcdb3597e25e2074d0281a", null ],
+    [ "getRecetteModifiee", "class_recette_manager.html#a4eeb318aee7d66c5d2dbb6b6e1140e9c", null ],
     [ "getRecettes", "class_recette_manager.html#aa39e7f7324afceb987af1e0ad43a90b0", null ],
     [ "getRecettesNonValidees", "class_recette_manager.html#aef6673b8c833ba94b7d8531312c031e4", null ],
     [ "majRecette", "class_recette_manager.html#a85bd749d3e127cb4beb9c6594d1c4310", null ],

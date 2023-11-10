@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['utilisateur_0',['Utilisateur',['../class_utilisateur.html',1,'']]],
-  ['utilisateurmanager_1',['UtilisateurManager',['../class_utilisateur_manager.html',1,'']]]
+  ['recette_0',['Recette',['../class_recette.html',1,'']]],
+  ['recettemanager_1',['RecetteManager',['../class_recette_manager.html',1,'']]],
+  ['recettemodifiee_2',['RecetteModifiee',['../class_recette_modifiee.html',1,'']]]
 ];

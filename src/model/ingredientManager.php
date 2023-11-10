@@ -39,6 +39,16 @@ class IngredientManager extends Manager{
         $ligne = $resultat[0];
         return $this->ingredientFromLigne($ligne);
     }
+
+    public function getIngredientParNom(string $nom): ?Ingredient{
+        $resultat = $this->projectionBdd("select ING_ID, ING_INTITULE, ING_DESCRIPTION from CUI_INGREDIENT where lower(ING_INTITULE) = '$nom'");
+        if(empty($resultat)){
+            return null;
+        }
+
+        $ligne = $resultat[0];
+        return $this->ingredientFromLigne($ligne);
+    }
         
     /**
      * Renvoie tous les ingredients.
@@ -77,6 +87,31 @@ class IngredientManager extends Manager{
 
         return $ingredients;
     }
+
+    /**
+     * Renvoie tous les ingredients d'une recette modifiée.
+     *
+     * @param string $idRecette l'id de la recette
+     * @return array
+     * @see RecetteModifiee
+     */
+    public function getParRecetteModifiee(string $idRecette): array{
+        $requete =
+        "SELECT * FROM CUI_INGREDIENT
+        where ING_ID in(
+            select ING_ID FROM CUI_COMPOSITION_MOD
+            WHERE REC_ID = '$idRecette'
+        )";
+
+        $resultat = self::projectionBdd($requete);
+        $ingredients = [];
+
+        foreach($resultat as $ligne){
+            $ingredients[] = $this->ingredientFromLigne($ligne);
+        }
+
+        return $ingredients;
+    }
         
     /**
      * Insère l'ingredient donné en paramètre dans la base de données.
@@ -90,7 +125,7 @@ class IngredientManager extends Manager{
         values (?, NULLIF(?, ''))";
 
         if(! $this->requetePrepare($requete, [$ingredient->getIntitule(), $ingredient->getDescription()])){
-            throw new Exception("échec de l'insertion du ingredient en base de données");
+            throw new Exception("échec de l'insertion de l'ingredient en base de données");
         }
     }
 
@@ -100,7 +135,41 @@ class IngredientManager extends Manager{
      * @param string $idRecette l'id de la recette
      */
     public function ajouterIngredientARecette(Ingredient $ingredient, string $idRecette){
-        throw new Exception("not implemented yet");
+        $ingredientEnBase = self::getIngredientParNom($ingredient->getIntitule());
+        if(! $ingredientEnBase){
+            self::creerIngredient($ingredient);
+            $ingredientEnBase = self::getIngredientParNom($ingredient->getIntitule());
+        }
+
+        $requete = 
+        "INSERT INTO CUI_COMPOSITION (REC_ID, ING_ID)
+        VALUES (?, ?)";
+
+        if(! self::requetePrepare($requete, [$idRecette, $ingredientEnBase->getId()])){
+            throw new Exception("échec de l'ajout d'ingrédient");
+        }
+    }
+
+    /**
+     * Ajoute un ingrédient à une recette modifiée.
+     * @param Ingredient $ingredient l'ingrédient à ajouter
+     * @param string $idRecette l'id de la recette
+     * @see RecetteModifiee
+     */
+    public function ajouterIngredientARecetteModifiee(Ingredient $ingredient, string $idRecette){
+        $ingredientEnBase = self::getIngredientParNom($ingredient->getIntitule());
+        if(! $ingredientEnBase){
+            self::creerIngredient($ingredient);
+            $ingredientEnBase = self::getIngredientParNom($ingredient->getIntitule());
+        }
+
+        $requete = 
+        "INSERT INTO CUI_COMPOSITION_MOD (REC_ID, ING_ID)
+        VALUES (?, ?)";
+
+        if(! self::requetePrepare($requete, [$idRecette, $ingredientEnBase->getId()])){
+            throw new Exception("échec de l'ajout d'ingrédient");
+        }
     }
 
     /**
@@ -109,7 +178,41 @@ class IngredientManager extends Manager{
      * @param string $idRecette l'id de la recette
      */
     public function supprimerIngredientDeRecette(Ingredient $ingredient, string $idRecette){
-        throw new Exception("not implemented yet");
+        $ingredientEnBase = self::getIngredientParNom($ingredient->getIntitule());
+        if(! $ingredientEnBase){
+            self::creerIngredient($ingredient);
+            $ingredientEnBase = self::getIngredientParNom($ingredient->getIntitule());
+        }
+
+        $requete = 
+        "DELETE FROM CUI_COMPOSITION 
+        WHERE REC_ID = ? AND ING_ID = ?";
+
+        if(! self::requetePrepare($requete, [$idRecette, $ingredientEnBase->getId()])){
+            throw new Exception("échec de la suppression de l'ingrédient de la recette");
+        }
+    }
+
+    /**
+     * Retire un ingrédient d'une recette modifiée.
+     * @param Ingredient $ingredient l'ingrédient à enlever
+     * @param string $idRecette l'id de la recette
+     * @see RecetteModifiee
+     */
+    public function supprimerIngredientDeRecetteModifiee(Ingredient $ingredient, string $idRecette){
+        $ingredientEnBase = self::getIngredientParNom($ingredient->getIntitule());
+        if(! $ingredientEnBase){
+            self::creerIngredient($ingredient);
+            $ingredientEnBase = self::getIngredientParNom($ingredient->getIntitule());
+        }
+
+        $requete = 
+        "DELETE FROM CUI_COMPOSITION_MOD 
+        WHERE REC_ID = ? AND ING_ID = ?";
+
+        if(! self::requetePrepare($requete, [$idRecette, $ingredientEnBase->getId()])){
+            throw new Exception("échec de la suppression de l'ingrédient de la recette");
+        }
     }
     
     /**
@@ -123,7 +226,7 @@ class IngredientManager extends Manager{
         "delete from CUI_INGREDIENT where ING_ID = ?";
 
         if(! $this->requetePrepare($requete, [$ingredient->getId()])){
-            throw new Exception("échec de la suppression du ingredient");
+            throw new Exception("échec de la suppression de l'ingredient");
         }
     }
 }

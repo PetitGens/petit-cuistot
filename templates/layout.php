@@ -5,6 +5,12 @@
 
 <!-- Cette page sera utilisé par les vues -->
 
+<?php
+require_once 'src/controllers/connexion.php';
+
+$connecte = ConnexionController::estConnecte();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -27,13 +33,34 @@
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#" style="width: 200px;height: 70px;padding: 0px;margin: 0px;"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon" style="transform: translate(0px);width: inherit;height: inherit;margin: 5mm;background: transparent;margin-right: 5mm;"><img src="assets/img/Logo.png" style="width: inherit;display: flex;position: static;overflow: auto;height: inherit;margin: initial;"></span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-5" style="font-family: sans-serif;font-size: 25px;">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Nos recettes</a></li>
+                    <li class="nav-item"><a class="nav-link active" href=".">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href=".?action=listeRecettes">Nos recettes</a></li>
                     <li class="nav-item"></li>
                     <li class="nav-item dropdown show"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#">Filtres&nbsp;</a>
                         <div class="dropdown-menu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light"><a class="dropdown-item" href="#" data-bs-theme="light"><span style="color: rgb(42, 57, 144); background-color: rgba(42, 57, 144, 0);">Catégories</span></a><a class="dropdown-item" href="#"><span style="color: rgb(42, 57, 144);">Titre</span></a><a class="dropdown-item" href="#"><span style="color: rgb(42, 57, 144);">Ingredients</span></a></div>
                     </li>
-                </ul><a class="btn btn-primary ms-md-2" role="button" href="#" style="color: #ffffff;border-left-color: var(--bs-btn-border-color);box-shadow: 0px 0px var(--bs-light);font-size: 23px;">Se connecter</a>
+
+
+                <?php //TODO Menu pour les utilisateurs connectés ; pour l'instant, on affiche juste Connecté... ?>
+
+
+                    <?php
+                    if($connecte){
+                        ?>
+                        <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#" style="background: var(--bs-primary);border-radius: 22px;color: var(--bs-light-text-emphasis);">Profil&nbsp;<img src="assets/img/Pticuisto.png" style="width: 2em;height: 2em;"></a>
+                            <div class="dropdown-menu show" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);"><a class="dropdown-item" href="#">Mes recettes</a><a class="dropdown-item" href="#">Nouvelle Recette</a><a class="dropdown-item" id="boutonDeconnexion" href="#">Se Déconnecter</a></div>
+                        </li>
+                        <?php
+                    }
+                    else{
+                        ?>
+                            <a class="btn btn-primary ms-md-2" role="button" href="?action=pageConnexion" style="color: #ffffff;border-left-color: var(--bs-btn-border-color);box-shadow: 0px 0px var(--bs-light);font-size: 23px;">
+                                Se connecter
+                            </a>
+                        <?php
+                    }
+                    ?>
+                </ul>
             </div>
         </div>
     </nav>
@@ -58,5 +85,7 @@
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Simple-Slider-swiper-bundle.min.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
+    <script src="assets/js/deconnexion.js"></script>
+    <?php if(isset($script)) echo $script ?>
 </body>
 </html>

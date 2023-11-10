@@ -101,8 +101,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad4f22cf5a0fe40338df30eca3ef55149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac416686ecc958d91dd085dbefa3f919c" id="r_ac416686ecc958d91dd085dbefa3f919c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_utilisateur_manager.html#ac416686ecc958d91dd085dbefa3f919c">getUtilisateurs</a> ()</td></tr>
 <tr class="separator:ac416686ecc958d91dd085dbefa3f919c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b1705a28e02b812e5a5dfc000d348ac" id="r_a8b1705a28e02b812e5a5dfc000d348ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_utilisateur_manager.html#a8b1705a28e02b812e5a5dfc000d348ac">connecter</a> (string $identifiant, string $hashMdp)</td></tr>
-<tr class="separator:a8b1705a28e02b812e5a5dfc000d348ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5834b10a4fcace98fe0d8511269b72ec" id="r_a5834b10a4fcace98fe0d8511269b72ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_utilisateur_manager.html#a5834b10a4fcace98fe0d8511269b72ec">connecter</a> (string $identifiant, string $motDePasse)</td></tr>
+<tr class="separator:a5834b10a4fcace98fe0d8511269b72ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa365c4ebcd4a9a3ed2875aacb6563e3" id="r_afa365c4ebcd4a9a3ed2875aacb6563e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_utilisateur_manager.html#afa365c4ebcd4a9a3ed2875aacb6563e3">suspendreUtilisateur</a> (<a class="el" href="class_utilisateur.html">Utilisateur</a> $utilisateur)</td></tr>
 <tr class="separator:afa365c4ebcd4a9a3ed2875aacb6563e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a978d5d4cd49b73cfa7131831ce622a75" id="r_a978d5d4cd49b73cfa7131831ce622a75"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_utilisateur_manager.html#a978d5d4cd49b73cfa7131831ce622a75">leverSuspension</a> (<a class="el" href="class_utilisateur.html">Utilisateur</a> $utilisateur)</td></tr>
@@ -129,8 +129,8 @@ PDO&#160;</td><td class="memItemRight" valign="bottom"><b>$bdd</b></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_utilisateur.html">Utilisateur</a></dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Julien Ait azzouzene <a href="#" onclick="location.href='mai'+'lto:'+'jul'+'ie'+'n.a'+'it'+'azz'+'ou'+'zen'+'e@'+'etu'+'.u'+'nic'+'ae'+'n.f'+'r'; return false;">julie<span class="obfuscator">.nosp@m.</span>n.ai<span class="obfuscator">.nosp@m.</span>tazzo<span class="obfuscator">.nosp@m.</span>uzen<span class="obfuscator">.nosp@m.</span>e@etu<span class="obfuscator">.nosp@m.</span>.uni<span class="obfuscator">.nosp@m.</span>caen.<span class="obfuscator">.nosp@m.</span>fr</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8b1705a28e02b812e5a5dfc000d348ac" name="a8b1705a28e02b812e5a5dfc000d348ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b1705a28e02b812e5a5dfc000d348ac">&#9670;&#160;</a></span>connecter()</h2>
+<a id="a5834b10a4fcace98fe0d8511269b72ec" name="a5834b10a4fcace98fe0d8511269b72ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5834b10a4fcace98fe0d8511269b72ec">&#9670;&#160;</a></span>connecter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -145,7 +145,7 @@ PDO&#160;</td><td class="memItemRight" valign="bottom"><b>$bdd</b></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>$hashMdp</em>&#160;</td>
+          <td class="paramname"><em>$motDePasse</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -157,7 +157,7 @@ PDO&#160;</td><td class="memItemRight" valign="bottom"><b>$bdd</b></td></tr>
 <p>Tente de connecter un utilisateur. Renvoie l'<a class="el" href="class_utilisateur.html">Utilisateur</a> si la connexion a réussi, sinon renvoie null. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$identifiant</td><td>le pseudo ou l'adresse email de l'utilisateur. </td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$hashMdp</td><td>le mot de passe hashé de l'utilisateur </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$motDePasse</td><td>le mot de passe de l'utilisateur </td></tr>
   </table>
   </dd>
 </dl>
