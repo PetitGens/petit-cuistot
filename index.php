@@ -12,6 +12,7 @@ require_once 'src/controllers/accueil.php';
 require_once 'src/controllers/pageRecette.php';
 require_once 'src/controllers/pageConnexion.php';
 require_once 'src/controllers/connexion.php';
+require_once 'src/controllers/pageModifierEdito.php';
 
 try{
     session_start();
@@ -53,6 +54,9 @@ try{
             $controleur = new PageRecetteControleur();
             break;
 
+        case 'modifier-edito':
+            $controleur = new ModifierEditoControleur();
+            break;
         default:
             throw new Exception("la page demandée n'a pas été trouvée");
     }
