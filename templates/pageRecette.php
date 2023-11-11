@@ -3,16 +3,18 @@ require_once 'src/lib/Parsedown.php';
 require_once 'src/model/recette.php';
 require_once 'src/model/ingredient.php';
 
-function afficherPageRecette(Recette $recette){
+function afficherPageRecette(Recette $recette, bool $admin){
     $titre = $recette->getTitre();
+
+    if($admin){
+        $titre = "Validation : $titre";
+    }
 
     $Parsedown=new Parsedown();
     $Parsedown->setSafeMode(true);
 
     ob_start();
     ?>
-
-    <?php //TODO gérer les dimensions de l'image ?>
     <div data-bss-bg="true" style="text-align:center;height: 500px;padding-top: 30px;padding-right: 10px;padding-left: 10px;background-image: url(<?=$recette->getImage()?>);background-repeat: no-repeat;background-size: contain;background-position: center">
         <h1 style="margin:auto;margin-top: 20px;margin-bottom: 10%;padding: 10px;width: fit-content;text-align: center;background:rgba(192,192,192,0.75);border-radius: 5px;"><?=$recette->getTitre() ?></h1>
     </div>
@@ -45,6 +47,11 @@ function afficherPageRecette(Recette $recette){
                 <?=$Parsedown->text($recette->getContenu())?>
             </p>
         </div>
+        <?php 
+        if ($admin){
+            ?><a href=".?action=validerRecette&idRecette=<?=$recette->getId()?>">Valider la recette</a><?php
+        }
+        ?>
     </div>
     <?php
     $contenu = ob_get_clean();

@@ -9,8 +9,8 @@ require_once './src/model/recette.php';
 require_once './src/model/tag.php';
 
 
-function afficher($recette, $cache = true){
-    $lienRecette = ".?action=detail-recette&idRecette=".$recette->getId()?>
+function afficher($recette, $cache = true, $action = 'detail-recette'){
+    $lienRecette = ".?action=$action&idRecette=".$recette->getId()?>
     <div class="col" <?php if($cache) echo 'style="display: none"'?>>
         <a href="<?= $lienRecette ?>" style="all: unset; cursor: pointer">
             <div class="d-flex flex-column flex-lg-row" style="border : 2px solid black; border-radius : 6px" > 

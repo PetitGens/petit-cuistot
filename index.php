@@ -12,6 +12,8 @@ require_once 'src/controllers/accueil.php';
 require_once 'src/controllers/pageRecette.php';
 require_once 'src/controllers/pageConnexion.php';
 require_once 'src/controllers/connexion.php';
+require_once 'src/controllers/recettesAdmin.php';
+require_once 'src/controllers/validationRecette.php';
 
 try{
     session_start();
@@ -51,8 +53,21 @@ try{
 
         case 'detail-recette':
             $idRecette = getVariable_GET('idRecette');
-
             $controleur = new PageRecetteControleur($idRecette);
+            break;
+
+        case 'recettesAdmin':
+            $controleur = new RecettesAdminControleur();
+            break;
+
+        case 'examenRecette':
+            $idRecette = getVariable_GET('idRecette');
+            $controleur = new PageRecetteControleur($idRecette, true);
+            break;
+
+        case 'validerRecette':
+            $idRecette = getVariable_GET('idRecette');
+            $controleur = new ValidationRecetteControleur($idRecette);
             break;
 
         default:
