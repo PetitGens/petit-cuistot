@@ -51,4 +51,3 @@ function afficherPageRecette(Recette $recette){
 
     require 'templates/layout.php';
 }
-?>
