@@ -22,27 +22,28 @@ function onClick(event){
         onMenuFiltre();
     } else if (target === menuCategorie || menuCategorie.contains(target)) {
         onMenuCategorie();
-    } else if (target === menuCompte || menuCompte.contains(target)) {
+    } else if (menuCompte !== null && (target === menuCompte || menuCompte.contains(target))) {
         onMenuCompte();
     } else {
         sousMenuFiltre.classList.remove("show");
         sousMenuCategorie.classList.remove("show");
-        sousMenuCompte.classList.remove("show");
+        cacherSousMenuCompte();
     }
 }
 
 function onMenuFiltre(){
     sousMenuFiltre.classList.toggle("show");
 
-    sousMenuCompte.classList.remove("show");
     sousMenuCategorie.classList.remove("show");
+    cacherSousMenuCompte();
 }
 
 function onMenuCategorie(){
     sousMenuCategorie.classList.toggle("show");
 
-    sousMenuCompte.classList.remove("show");
+    
     sousMenuFiltre.classList.remove("show");
+    cacherSousMenuCompte();
 }
 
 function onMenuCompte(){
@@ -50,4 +51,10 @@ function onMenuCompte(){
 
     sousMenuFiltre.classList.remove("show");
     sousMenuCategorie.classList.remove("show");
+}
+
+function cacherSousMenuCompte(){
+    if(sousMenuCompte !== null){
+        sousMenuCompte.classList.remove("show");
+    }
 }

@@ -61,7 +61,7 @@ $utilisateur = ConnexionController::estConnecte();
                                 <img src="assets/img/Pticuisto.png" style="width: 2em;height: 2em;">
                             </a>
                             <div id="sousMenuCompte" class="dropdown-menu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);">
-                                <a class="dropdown-item" href="#">Mes recettes</a>
+                                <a class="dropdown-item" href=".?action=mesRecettes">Mes recettes</a>
                                 <a class="dropdown-item" href="#">Nouvelle Recette</a>
                                 <?php if ($utilisateur->estAdministrateur()){
                                     ?>

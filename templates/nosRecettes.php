@@ -8,7 +8,7 @@ require_once 'templates/carteRecette.php';
 require_once 'src/model/recette.php';
 require_once 'src/controllers/connexion.php';
 
-function afficherListeRecettes($recettes, $vueAdministrateur = false){
+function afficherListeRecettes($recettes, $vueAdministrateur = false, $vueNosRecettes = false){
     $titre = 'Nos Recettes';
     $entete = "Les recettes pour vos p'tits gloutons, 
     certifiées savoureuses par notre équipe de cuistots du dimanche";
@@ -18,6 +18,11 @@ function afficherListeRecettes($recettes, $vueAdministrateur = false){
         $titre = 'Validation de recettes';
         $entete = 'Cliquez sur une recette pour la vérifier';
         $action = 'examenRecette';
+    }
+
+    if($vueNosRecettes){
+        $titre = 'Voici vos recettes';
+        $entete = 'Cliquez sur une de vos recettes pour voir son contenu';
     }
 
     $script = '<script src="assets/js/listeRecette.js"></script>';
