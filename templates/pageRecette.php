@@ -1,7 +1,9 @@
 <?php
 require_once 'src/lib/Parsedown.php';
 require_once 'src/model/recette.php';
+require_once 'src/model/recetteManager.php';
 require_once 'src/model/ingredient.php';
+require_once 'src/controllers/connexion.php';
 
 function afficherPageRecette(Recette $recette, bool $admin){
     $titre = $recette->getTitre();
@@ -12,6 +14,16 @@ function afficherPageRecette(Recette $recette, bool $admin){
 
     $Parsedown=new Parsedown();
     $Parsedown->setSafeMode(true);
+
+    $utilisateur = ConnexionController::estConnecte();
+
+    $peutSupprimer = false;
+    
+    if($utilisateur){
+        if($utilisateur->estAdministrateur() || $recette->getIdAuteur() === $utilisateur->getId()){
+            $peutSupprimer = true;
+        }
+    }
 
     ob_start();
     ?>
@@ -47,9 +59,18 @@ function afficherPageRecette(Recette $recette, bool $admin){
                 <?=$Parsedown->text($recette->getContenu())?>
             </p>
         </div>
-        <?php 
+        <?php
         if ($admin){
             ?><a href=".?action=validerRecette&idRecette=<?=$recette->getId()?>">Valider la recette</a><?php
+        }
+
+        if($peutSupprimer){
+        ?>
+            <a href="#">
+                <img id="iconeSpr"src="assets/img/poubelle.png" alt="icone poubelle" style="height: 50px; width: 50px; margin-bottom: 10px; margin-right: 10px; margin-left: 80%;">
+            </a>
+            <script src= "assets/js/suppression.js"></script>
+        <?php
         }
         ?>
     </div>

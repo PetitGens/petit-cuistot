@@ -16,6 +16,7 @@ require_once 'src/controllers/ListeRecettesFiltreesControleur.php';
 require_once 'src/controllers/recettesAdmin.php';
 require_once 'src/controllers/validationRecette.php';
 require_once 'src/controllers/pageModifierEdito.php';
+require_once 'src/controllers/supprimer.php';
 
 try{
     session_start();
@@ -76,11 +77,17 @@ try{
             $controleur = new ModifierEditoControleur();
             break;
 
+        case 'supprimerRecette':
+            $idRecette = getVariable_GET('idRecette');
+            $controleur = new SupprimerRecetteControleur($idRecette);
+            break;
+
         case 'recette-filtre':
             $filtre = getVariable_GET('filtre');
             $search = getVariable_GET('search');
             $controleur = new ListeRecettesFiltreesControleur($filtre,$search);
             break;
+            
         default:
             throw new Exception("la page demandée n'a pas été trouvée");
     }
