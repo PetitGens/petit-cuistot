@@ -6,6 +6,8 @@ $titre = 'nouvelle recette';
 // ob_start crée un buffer qui va récupérer tout ce qui est censé être affiché (echo + HTML) 
 ob_start();
 
+$ingredients = array();
+
     ?>
 
 <div class="container py-4 py-xl-5">
@@ -28,10 +30,11 @@ ob_start();
                         <?php
                         foreach((new CategorieManager)->getCategories() as $categorie){
                             ?>
-                            <option value="<?=$categorie?>"><?=$categorie?></option>
+                            <option value="$categorie">$categorie</option>
                             <?php
                         }
                         ?>
+                        <option value="reeses">Reeses</option> 
                     </select>
                     
                 <br>

@@ -18,11 +18,18 @@ class CreationRecetteUtilisateurControleur{
         $listeingredients = explode(',', $ingredients);
         $listetags = explode(',', $tags);
 
-        $recette = new Recette($titre, $recette, $resume, $image, 'A', /*$connexionManager->estConnecte()->getId()*/ 1 , $categorie);
+        $recette = new Recette($titre, $recette, $resume, $image, 'A',$connexionManager->estConnecte()->getId() , $categorie);
 
         $recetteManager->creerRecette($recette);
 
-        $recette = $recetteManager()->getRecette()
+        $recette = $recetteManager->getDerniereRecetteCree((new ConnexionController)->estConnecte());
+
+        foreach($listeingredients as $ingredient){
+            (new IngredientManager)->ajouterIngredientARecette(new Ingredient($ingredient), $recette->getId());
+        }
+        foreach($listetags as $tag){
+            (new TagManager)->ajouterTagARecette(new Tag($tag), $recette->getId());
+        }
 
     }
 
