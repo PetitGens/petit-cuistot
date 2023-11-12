@@ -18,7 +18,9 @@ Ce projet permet à un internaute de pouvoir accéder à des recettes réalisée
   4. Une fois connecter, les fonctionnalitées liés à votre rôle seront présentes si vous cliquez sur votre compte en haut à droite de votre écran.
 
 ## Documentation
-  Le MLD(Modèle Logique de Données) et MCD(Modèle Conceptuel de Données) de la base de donnée sont consultable dans le dossier "sql".
+  Le dossier docs contient une documentation générée avec Doxygen (ouvrir l'index.html).
+
+  Le MLD(Modèle Logique de Données) et MCD(Modèle Conceptuel de Données) de la base de donnée sont également consultablew dans le dossier "sql".
 
 ## Crédit
 - Julien AIT AZZOUZENE
