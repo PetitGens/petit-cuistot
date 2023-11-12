@@ -29,3 +29,9 @@ Ce projet permet à un internaute de pouvoir accéder à des recettes réalisée
 - Paul MORISSE
   
   (étudiants du TD3)
+
+## À l'attention du correcteur, M. Vallot
+
+Le site déployé est accessible à l'adresse suivante : https://dev-aitazzo221.users.info.unicaen.fr/
+
+Deux comptes utilisateurs sont à votre disposition pour tester le site : un compte éditeur test (mot de passe test) et un compte administrateur admin (mot de passe nidma).
