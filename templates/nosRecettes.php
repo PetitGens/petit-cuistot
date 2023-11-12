@@ -6,11 +6,16 @@
 
 require_once 'templates/carteRecette.php';
 require_once 'src/model/recette.php';
+require_once 'src/controllers/connexion.php';
 
 function afficherListeRecettes($recettes){
     $titre = 'Nos Recettes';
 
     $script = '<script src="assets/js/listeRecette.js"></script>';
+
+    $utilisateur = ConnexionController::estConnecte();
+
+    $estAdmin = $utilisateur && $utilisateur->estAdministrateur();
 
     // ob_start crée un buffer qui va récupérer tout ce qui est censé être affiché (echo + HTML) 
     ob_start();
@@ -27,7 +32,7 @@ function afficherListeRecettes($recettes){
                 <?php
                 foreach($recettes as $recette){
                     if($recette->estValide()){
-                        afficher($recette);
+                        afficher($recette, true, $estAdmin);
                     }
                 }
                 ?>

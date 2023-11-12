@@ -13,6 +13,7 @@ require_once 'src/controllers/pageRecette.php';
 require_once 'src/controllers/pageConnexion.php';
 require_once 'src/controllers/connexion.php';
 require_once 'src/controllers/pageModifierEdito.php';
+require_once 'src/controllers/supprimer.php';
 
 try{
     session_start();
@@ -58,6 +59,11 @@ try{
 
         case 'modifier-edito':
             $controleur = new ModifierEditoControleur();
+            break;
+
+        case 'supprimerRecette':
+            $idRecette = getVariable_GET('idRecette');
+            $controleur = new SupprimerRecetteControleur($idRecette);
             break;
         default:
             throw new Exception("la page demandée n'a pas été trouvée");

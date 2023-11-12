@@ -1,13 +1,19 @@
 <?php
 require_once 'src/lib/Parsedown.php';
 require_once 'src/model/recette.php';
+require_once 'src/model/recetteManager.php';
 require_once 'src/model/ingredient.php';
+require_once 'src/controllers/connexion.php';
 
 function afficherPageRecette(Recette $recette){
     $titre = $recette->getTitre();
 
     $Parsedown=new Parsedown();
     $Parsedown->setSafeMode(true);
+
+    $utilisateur = ConnexionController::estConnecte();
+
+    $estAdmin = $utilisateur && $utilisateur->estAdministrateur();
 
     ob_start();
     ?>
@@ -45,6 +51,18 @@ function afficherPageRecette(Recette $recette){
                 <?=$Parsedown->text($recette->getContenu())?>
             </p>
         </div>
+        <?php
+        if($estAdmin){
+        ?>
+            <a>
+                <img id="iconeSpr"src="assets/img/poubelle.png" alt="icone poubelle" style="height: 50px; width: 50px; margin-bottom: 10px; margin-right: 10px; margin-left: 80%;">
+        </a>
+            <script src= "assets/js/suppression.js"></script>
+            
+        <?php
+        }
+        
+        ?>
     </div>
     <?php
     $contenu = ob_get_clean();
