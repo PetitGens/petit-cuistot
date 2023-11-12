@@ -36,15 +36,15 @@ $utilisateur = ConnexionController::estConnecte();
                     <li class="nav-item"><a class="nav-link active" href=".">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href=".?action=listeRecettes">Nos recettes</a></li>
                     <li class="nav-item"></li>
-                    <li class="nav-item dropdown"><button class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown">Filtres&nbsp;</button>
-                        <div class="dropdown-menu has-submenu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light">
+                    <li class="nav-item dropdown"><button id="menuFiltre" class="dropdown-toggle nav-link" aria-expanded="true">Filtres&nbsp;</button>
+                        <div id="sousMenuFiltre" class="dropdown-menu has-submenu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light">
                             <a id="tag" class="dropdown-item" data-bs-theme="light"><span style="color: rgb(42, 57, 144); background-color: rgba(42, 57, 144, 0);">Tag</span></a>
                             <a id="titre" class="dropdown-item" ><span style="color: rgb(42, 57, 144);">Titre</span></a>
                             <a id="ingredients" class="dropdown-item"><span style="color: rgb(42, 57, 144);">Ingredients</span></a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown"><button class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown">Catégories&nbsp;</button>
-                        <div class="dropdown-menu has-submenu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light">
+                    <li class="nav-item dropdown"><button id="menuCategorie" class="dropdown-toggle nav-link" aria-expanded="true">Catégories&nbsp;</button>
+                        <div id="sousMenuCategorie" class="dropdown-menu has-submenu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light">
                             <?php
                             foreach ((new CategorieManager())->getCategories() as $category ){
                                 ?><a class="dropdown-item" data-bs-theme="light" href="?action=recette-filtre&filtre=categorie&search=<?=$category?>"><span style="color: rgb(42, 57, 144); background-color: rgba(42, 57, 144, 0);"><?=$category?></span></a>
@@ -57,10 +57,10 @@ $utilisateur = ConnexionController::estConnecte();
                     if($utilisateur){
                         ?>
                         <li class="nav-item dropdown">
-                            <a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#" style="background: var(--bs-primary);border-radius: 22px;color: var(--bs-light-text-emphasis);">Profil&nbsp;
+                            <a id="menuCompte" class="dropdown-toggle nav-link" aria-expanded="true" href="#" style="background: var(--bs-primary);border-radius: 22px;color: var(--bs-light-text-emphasis);">Profil&nbsp;
                                 <img src="assets/img/Pticuisto.png" style="width: 2em;height: 2em;">
                             </a>
-                            <div class="dropdown-menu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);">
+                            <div id="sousMenuCompte" class="dropdown-menu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);">
                                 <a class="dropdown-item" href=".?action=mesRecettes">Mes recettes</a>
                                 <a class="dropdown-item" href="#">Nouvelle Recette</a>
                                 <?php if ($utilisateur->estAdministrateur()){
@@ -124,6 +124,7 @@ $utilisateur = ConnexionController::estConnecte();
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Simple-Slider-swiper-bundle.min.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
+    <script src="assets/js/barreNavigation.js"></script>
     <script src="assets/js/deconnexion.js"></script>
     <?php if(isset($script)) echo $script ?>
 </body>
