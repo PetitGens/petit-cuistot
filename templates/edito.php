@@ -27,7 +27,6 @@ function afficherPageEdito(){
             <textarea  name="contenuEdito" style="min-height: 500px; min-width: 480px; resize: none; height: 70%; width: 40%"></textarea>
             </br>
             <input name="redirect" id ="modifierEdito" type="submit" style="font-family: sans-serif;font-size: 25px;  background: var(--bs-primary); color: white">
-            <script src="assets/js/modifierEdito.js"></script>
         </form>
     </div>
     <?php
