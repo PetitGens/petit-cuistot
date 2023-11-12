@@ -12,6 +12,7 @@ require_once 'src/controllers/accueil.php';
 require_once 'src/controllers/pageRecette.php';
 require_once 'src/controllers/pageConnexion.php';
 require_once 'src/controllers/connexion.php';
+require_once 'src/controllers/ListeRecettesFiltreesControleur.php';
 
 try{
     session_start();
@@ -54,7 +55,11 @@ try{
 
             $controleur = new PageRecetteControleur($idRecette);
             break;
-
+        case 'recette-filtre':
+            $filtre = getVariable_GET('filtre');
+            $search = getVariable_GET('search');
+            $controleur = new ListeRecettesFiltreesControleur($filtre,$search);
+            break;
         default:
             throw new Exception("la page demandée n'a pas été trouvée");
     }
