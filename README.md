@@ -20,7 +20,7 @@ Ce projet permet à un internaute de pouvoir accéder à des recettes réalisée
 ## Documentation
   Le dossier docs contient une documentation générée avec Doxygen (ouvrir l'index.html).
 
-  Le MLD(Modèle Logique de Données) et MCD(Modèle Conceptuel de Données) de la base de donnée sont également consultablew dans le dossier "sql".
+  Le MLD(Modèle Logique de Données) et MCD(Modèle Conceptuel de Données) de la base de donnée sont également consultables dans le dossier "sql".
 
 ## Crédit
 - Julien AIT AZZOUZENE
