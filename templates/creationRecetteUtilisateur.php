@@ -1,10 +1,7 @@
 <?php
 
-include_once 'src/controllers/creationRecetteUtilisateur.php';
 
 $titre = 'nouvelle recette';
-
-$script = '<script src="assets/js/listeRecette.js"></script>';
 
 // ob_start crée un buffer qui va récupérer tout ce qui est censé être affiché (echo + HTML) 
 ob_start();
@@ -25,50 +22,61 @@ $ingredients = array();
 
                 <div>
                     <label for="titre">Titre :</label>
-                    <input type="text" id="titre">
+                    <input type="text" id="titre" name="titre">
                 </div>
+
+                <div>
+                    <label for="categorie">Categorie :</label>
+                    <input type="categorie" id="categorie" name="categorie">
+                </div>
+                <br>
                 <div>
                     <label for="resume">Résumé :</label>
-                    <textarea id="resume" style="width:100%; height:100px"></textarea>
+                    <textarea id="resume" name="resume" style="width:100%; height:100px"></textarea>
                 </div>
                 <div>
                     <label for="recette">Recette :</label>
-                    <textarea id="recette"style="width:100%; height:400px"></textarea>
+                    <textarea id="recette" name="recette" style="width:100%; height:400px"></textarea>
                 </div>
                 <div>
                     <label for="image">Lien vers l'image :</label>
-                    <input type="text" id="image">
+                    <input type="text" id="image" name="image">
+                </div>
+                
+                <div>
+                    <label for="tags">tags (séparez les par des virgules) :</label>
+                    <input type="text" id="tags" name="tags">
                 </div>
 
                 <div>
                     <label for="ingredients">ingredients (séparez les par des virgules) :</label>
-                    <input type="text" id="ingredients">
+                    <input type="text" id="ingredients" name="ingredients">
                 </div>
 
                 <button type="submit" id="boutonvalider">Enregistrer</button>
 
             </form>
 
-
-
         </div>
-        <?php
-        include_once 'assets/js/creationRecette.js'
-        ?>
 
 <?php
 
-$controleurcreationrecette = new creerRecette();
 
-if(isset($_POST['titre']) and isset($_POST['resume']) and isset($_POST['recette']) and isset($_POST['image']) and isset($_POST['ingredients'])){
+
+
+if(isset($_POST['titre']) and isset($_POST['categorie']) and isset($_POST['resume']) and isset($_POST['recette']) and isset($_POST['image']) and  isset($_POST['ingredients']) and isset($_POST['tags'])){
     
+    $controleurcreationrecette = new CreationRecetteUtilisateurControleur();
+
     $titre = $_POST['titre'];
+    $categorie = $_POST['categorie'];
     $resume = $_POST['resume'];
     $recette = $_POST['recette'];
     $image = $_POST['image'];
     $ingredients = $_POST['ingredients'];
+    $tags = $_POST['tags'];
 
-    $controleurcreationrecette->insererRecette($titre, $resume, $recette, $image, $ingredients);
+    $controleurcreationrecette->insererRecette($titre, $categorie, $resume, $recette, $image, $ingredients, $tags);
 
 }
 

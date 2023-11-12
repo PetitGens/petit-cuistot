@@ -36,8 +36,9 @@ try{
             break;
 
         case 'creation':
-            $controller = new CreationRecetteUtilisateurControleur;
-            $controller->executer();
+            //if((new ConnexionController)->estConnecte() != false){
+                $controleur = new CreationRecetteUtilisateurControleur();
+            //}
             break;
 
         case 'test':
