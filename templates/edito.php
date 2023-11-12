@@ -24,7 +24,7 @@ function afficherPageEdito(){
     <div style ="text-align: center">
         <h1>Modifier l'edito : </h1>
         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <textarea  name="contenuEdito" style="min-height: 500px; min-width: 480px; resize: none; height: 70%; width: 40%; font-family: Arial, sans-serif"></textarea>
+            <textarea  name="contenuEdito" style="min-height: 500px; min-width: 480px; resize: none; height: 70%; width: 40%; font-family: Arial, sans-serif"><?= (new EditoManager)->getEdito() ?></textarea>
             </br>
             <input name="redirect" id ="modifierEdito" type="submit" style="font-family: sans-serif;font-size: 25px;  background: var(--bs-primary); color: white">
         </form>
