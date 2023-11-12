@@ -67,6 +67,12 @@ values ('Recette simple de lait chaud',
 'GOU', 'https://i.imgur.com/cJACVb1.jpg', NOW(), 1, 'V'
 );
 
+INSERT INTO `CUI_RECETTE` (`REC_ID`, `REC_TITRE`, `REC_CONTENU`, `REC_RESUME`, `REC_IMAGE`, `REC_DATE_CREATION`, `REC_DATE_MODIFICATION`, `REC_STATUT`, `CAT_CODE`, `UTIL_ID`) 
+VALUES (NULL, 'Les Spaghetti Glacés à la Sauce Menthe-Chocolat', 
+'
+1. Faites bouillir les spaghettis selon les instructions du paquet, mais ajoutez une cuillère à soupe de sirop de menthe dans l\'eau bouillante (parce que pourquoi pas rendre les pâtes mentholées ?).\r\n\r\n2. Une fois cuits, égouttez les spaghettis et laissez-les refroidir complètement.\r\n\r\n3. Pendant ce temps, sortez la crème glacée à la menthe-chocolat du congélateur et laissez-la ramollir légèrement.\r\n\r\n4. Mélangez les spaghettis refroidis avec la crème glacée ramollie jusqu\'à obtenir une texture étrangement collante.\r\n\r\n5. Saupoudrez généreusement de pépites de chocolat pour ajouter une touche de croquant.\r\n\r\n6. Décorez le tout avec quelques feuilles de menthe pour une présentation chic (parce que même les plats farfelus peuvent être élégants).', 'Servez ces Spaghetti Glacés à la Sauce Menthe-Chocolat à vos amis et regardez leurs réactions hilarantes.', 'https://i.imgur.com/dxXByIv.png', 
+'2023-11-12 23:11:20', NULL,'A', 'GOU', '2') 
+
 -- ------COMPOSITION----- --
 
 insert into CUI_COMPOSITION (REC_ID, ING_ID) values (1, 1);
