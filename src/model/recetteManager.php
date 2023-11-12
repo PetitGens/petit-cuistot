@@ -154,11 +154,12 @@ class RecetteManager extends Manager {
     }
 
     /**
-     * Renvoie les recettes soumise pour validation pour la vue 
+     * Renvoie les recettes soumises pour validation pour la vue 
      * administrateur.
      * @return array un tableau d'objets Recette
      */
     public function getRecettesNonValidees(): array{
+        //TODO afficher les versions modifiées des recettes
 
         $requete = 
         "SELECT * FROM CUI_RECETTE
@@ -410,7 +411,7 @@ class RecetteManager extends Manager {
     public function validerRecette(Recette $recette): void{
         $requete = "UPDATE CUI_RECETTE SET REC_STATUT='V' WHERE REC_ID = ?";
         if(! self::requetePrepare($requete, [$recette->getId()])){
-            throw new Exception("Échec de l'ajout de la validation de la recette.");
+            throw new Exception("Échec de la validation de la recette.");
         }
     }
 

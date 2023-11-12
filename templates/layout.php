@@ -52,7 +52,7 @@ $utilisateur = ConnexionController::estConnecte();
                                 <a class="dropdown-item" href="#">Nouvelle Recette</a>
                                 <?php if ($utilisateur->estAdministrateur()){
                                     ?>
-                                    <a class="dropdown-item" href="#">Recettes a valider</a>
+                                    <a class="dropdown-item" href="?action=recettesAdmin">Recettes a valider</a>
                                     <a class="dropdown-item" href="?action=modifier-edito">Modifier l'édito</a>
                                     <?php
                                 }?>
