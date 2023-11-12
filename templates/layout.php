@@ -36,14 +36,14 @@ $utilisateur = ConnexionController::estConnecte();
                     <li class="nav-item"><a class="nav-link active" href=".">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href=".?action=listeRecettes">Nos recettes</a></li>
                     <li class="nav-item"></li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown">Filtres&nbsp;</a>
+                    <li class="nav-item dropdown"><button class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown">Filtres&nbsp;</button>
                         <div class="dropdown-menu has-submenu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light">
                             <a id="tag" class="dropdown-item" data-bs-theme="light"><span style="color: rgb(42, 57, 144); background-color: rgba(42, 57, 144, 0);">Tag</span></a>
                             <a id="titre" class="dropdown-item" ><span style="color: rgb(42, 57, 144);">Titre</span></a>
                             <a id="ingredients" class="dropdown-item"><span style="color: rgb(42, 57, 144);">Ingredients</span></a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown">Catégories&nbsp;</a>
+                    <li class="nav-item dropdown"><button class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown">Catégories&nbsp;</button>
                         <div class="dropdown-menu has-submenu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light">
                             <?php
                             foreach ((new CategorieManager())->getCategories() as $category ){
@@ -120,7 +120,7 @@ $utilisateur = ConnexionController::estConnecte();
             <p>Copyright&nbsp;©Les cuistots du dimanche 2023</p>
         </div>
     </footer>
-    <script src="/assets/js/menuRecherche.js"
+    <script src="assets/js/menuRecherche.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Simple-Slider-swiper-bundle.min.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
