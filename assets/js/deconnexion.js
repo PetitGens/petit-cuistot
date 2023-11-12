@@ -1,5 +1,8 @@
 let boutonDeconnexion = document.getElementById("boutonDeconnexion");
-boutonDeconnexion.addEventListener("click", resetSession);
+
+if(boutonDeconnexion !== null){
+    boutonDeconnexion.addEventListener("click", resetSession);
+}
 
 function resetSession(){
     let requeteHTTP = new XMLHttpRequest();

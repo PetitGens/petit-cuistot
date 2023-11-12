@@ -13,6 +13,12 @@ require_once 'src/controllers/accueil.php';
 require_once 'src/controllers/pageRecette.php';
 require_once 'src/controllers/pageConnexion.php';
 require_once 'src/controllers/connexion.php';
+require_once 'src/controllers/ListeRecettesFiltreesControleur.php';
+require_once 'src/controllers/recettesAdmin.php';
+require_once 'src/controllers/validationRecette.php';
+require_once 'src/controllers/pageModifierEdito.php';
+require_once 'src/controllers/supprimer.php';
+require_once 'src/controllers/mesRecettes.php';
 
 try{
     session_start();
@@ -59,11 +65,41 @@ try{
 
         case 'detail-recette':
             $idRecette = getVariable_GET('idRecette');
-
             $controleur = new PageRecetteControleur($idRecette);
             break;
 
+        case 'recettesAdmin':
+            $controleur = new RecettesAdminControleur();
+            break;
 
+        case 'examenRecette':
+            $idRecette = getVariable_GET('idRecette');
+            $controleur = new PageRecetteControleur($idRecette, true);
+            break;
+
+        case 'validerRecette':
+            $idRecette = getVariable_GET('idRecette');
+            $controleur = new ValidationRecetteControleur($idRecette);
+            break;
+
+        case 'modifier-edito':
+            $controleur = new ModifierEditoControleur();
+            break;
+
+        case 'supprimerRecette':
+            $idRecette = getVariable_GET('idRecette');
+            $controleur = new SupprimerRecetteControleur($idRecette);
+            break;
+
+        case 'recette-filtre':
+            $filtre = getVariable_GET('filtre');
+            $search = getVariable_GET('search');
+            $controleur = new ListeRecettesFiltreesControleur($filtre,$search);
+            break;
+
+        case 'mesRecettes':
+            $controleur = new MesRecettesControleur();
+            break;
 
         default:
             throw new Exception("la page demandée n'a pas été trouvée");

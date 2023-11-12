@@ -6,11 +6,30 @@
 
 require_once 'templates/carteRecette.php';
 require_once 'src/model/recette.php';
+require_once 'src/controllers/connexion.php';
 
-function afficherListeRecettes($recettes){
+function afficherListeRecettes($recettes, $vueAdministrateur = false, $vueNosRecettes = false){
     $titre = 'Nos Recettes';
+    $entete = "Les recettes pour vos p'tits gloutons, 
+    certifiées savoureuses par notre équipe de cuistots du dimanche";
+    $action = 'detail-recette';
+
+    if($vueAdministrateur){
+        $titre = 'Validation de recettes';
+        $entete = 'Cliquez sur une recette pour la vérifier';
+        $action = 'examenRecette';
+    }
+
+    if($vueNosRecettes){
+        $titre = 'Voici vos recettes';
+        $entete = 'Cliquez sur une de vos recettes pour voir son contenu';
+    }
 
     $script = '<script src="assets/js/listeRecette.js"></script>';
+
+    $utilisateur = ConnexionController::estConnecte();
+
+    $estAdmin = $utilisateur && $utilisateur->estAdministrateur();
 
     // ob_start crée un buffer qui va récupérer tout ce qui est censé être affiché (echo + HTML) 
     ob_start();
@@ -19,15 +38,15 @@ function afficherListeRecettes($recettes){
     <div class="container py-4 py-xl-5">
             <div class="row mb-5">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <h2>Nos recettes</h2>
-                    <p class="w-lg-50">Les recettes pour vos p'tits gloutons, certifiées savoureuses par notre équipe de cuistots du dimanche</p>
+                    <h2><?= $titre ?></h2>
+                    <p class="w-lg-50"><?= $entete ?></p>
                 </div>
             </div>
             <div class="row gy-4 row-cols-1 row-cols-md-2" id="conteneurRecette">
                 <?php
                 foreach($recettes as $recette){
-                    if($recette->estValide()){
-                        afficher($recette);
+                    if($vueAdministrateur || $recette->estValide()){
+                        afficher($recette, true, $action);
                     }
                 }
                 ?>

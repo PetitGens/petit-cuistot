@@ -21,6 +21,13 @@ VALUES
 '$2y$10$KdMnkhAn385H2QYaQy.DvOa8zTpq0X.RigK3uLKY9k60bwHPUJhGC', 
 'test@test.fr', 'Test', 'Jean', '2023-11-05 12:18:13', 'E', 'A');
 
+INSERT INTO CUI_UTILISATEUR (UTIL_PSEUDO, UTIL_MDP, UTIL_EMAIL, UTIL_NOM, UTIL_PRENOM, UTIL_DATE_INSCRIPTION, UTIL_TYPE, UTIL_STATUT)
+VALUES
+('admin',
+'$2y$10$0yFsSedzqaLmYWom8Dwo1.6UGXZGe5s1Jvw3/0T/BVOl.SmPgd6HK',
+'admin@admin.fr', 'Admin', 'Gilbert', NOW(), 'A', 'A'
+);
+
 -- -------TAG------------- --
 
 INSERT INTO CUI_TAG(TAG_INTITULE, TAG_DESCRIPTION)
