@@ -17,7 +17,13 @@ function afficherPageRecette(Recette $recette, bool $admin){
 
     $utilisateur = ConnexionController::estConnecte();
 
-    $estAdmin = $utilisateur && $utilisateur->estAdministrateur();
+    $peutSupprimer = false;
+    
+    if($utilisateur){
+        if($utilisateur->estAdministrateur() || $recette->getIdAuteur() === $utilisateur->getId()){
+            $peutSupprimer = true;
+        }
+    }
 
     ob_start();
     ?>
@@ -58,9 +64,9 @@ function afficherPageRecette(Recette $recette, bool $admin){
             ?><a href=".?action=validerRecette&idRecette=<?=$recette->getId()?>">Valider la recette</a><?php
         }
 
-        if($estAdmin){
+        if($peutSupprimer){
         ?>
-            <a>
+            <a href="#">
                 <img id="iconeSpr"src="assets/img/poubelle.png" alt="icone poubelle" style="height: 50px; width: 50px; margin-bottom: 10px; margin-right: 10px; margin-left: 80%;">
             </a>
             <script src= "assets/js/suppression.js"></script>
