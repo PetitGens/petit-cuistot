@@ -8,7 +8,7 @@
 <?php
 require_once 'src/controllers/connexion.php';
 
-$connecte = ConnexionController::estConnecte();
+$utilisateur = ConnexionController::estConnecte();
 ?>
 
 <!DOCTYPE html>
