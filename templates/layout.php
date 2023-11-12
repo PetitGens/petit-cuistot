@@ -56,7 +56,7 @@ $utilisateur = ConnexionController::estConnecte();
                     if($utilisateur){
                         ?>
                         <li class="nav-item dropdown">
-                            <a id="menuCompte" class="dropdown-toggle nav-link" aria-expanded="true" href="#" style="background: var(--bs-primary);border-radius: 22px;color: var(--bs-light-text-emphasis);">Profil&nbsp;
+                            <a id="menuCompte" class="dropdown-toggle nav-link" aria-expanded="true" href="#" style="background: var(--bs-primary);border-radius: 22px;color: var(--bs-light-text-emphasis);"><?= $utilisateur->getPseudo() ?>&nbsp;
                                 <img src="assets/img/Pticuisto.png" style="width: 2em;height: 2em;">
                             </a>
                             <div id="sousMenuCompte" class="dropdown-menu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);">
