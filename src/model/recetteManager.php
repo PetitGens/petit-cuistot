@@ -81,6 +81,26 @@ class RecetteManager extends Manager {
         return self::recetteFromLigne($ligne);
     }
 
+    public function getDerniereRecetteCree(Utilisateur $utilisateur): ?Recette{
+        $idUtilisateur = $utilisateur->getId(); 
+        $requete = 
+        "SELECT * FROM CUI_RECETTE 
+        JOIN CUI_CATEGORIE USING (CAT_CODE)
+        JOIN CUI_UTILISATEUR USING (UTIL_ID)
+        WHERE UTIL_ID = '$idUtilisateur'
+        ORDER BY REC_DATE_CREATION DESC LIMIT 1";
+
+        $resultat = self::projectionBdd($requete);
+                
+        if(! isset($resultat[0])) {
+            return null;
+        }
+
+        $ligne = $resultat[0];
+
+        return self::recetteFromLigne($ligne);
+    }
+
     /**
      * Renvoie la version modifiée d'une recette si elle existe
      * @param string $id l'id de la recette

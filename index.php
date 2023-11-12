@@ -8,6 +8,7 @@
 
 require_once 'src/controllers/controleur.php';
 require_once 'src/controllers/listeRecettes.php';
+require_once 'src/controllers/creationRecetteUtilisateur.php';
 require_once 'src/controllers/accueil.php';
 require_once 'src/controllers/pageRecette.php';
 require_once 'src/controllers/pageConnexion.php';
@@ -35,8 +36,15 @@ try{
     // Si ça ne correspond à aucune page, on renvoie vers la page d'erreur
     // (pour l'instant on a pas d'autre page, donc on retourne forcément une erreur)
     switch($_GET['action']){
+
         case 'listeRecettes':
             $controleur = new ListeRecettesControleur;
+            break;
+
+        case 'creation':
+            if((new ConnexionController)->estConnecte() != false){
+            $controleur = new CreationRecetteUtilisateurControleur();
+            }
             break;
 
         case 'test':
