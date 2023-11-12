@@ -17,6 +17,7 @@ require_once 'src/controllers/recettesAdmin.php';
 require_once 'src/controllers/validationRecette.php';
 require_once 'src/controllers/pageModifierEdito.php';
 require_once 'src/controllers/supprimer.php';
+require_once 'src/controllers/mesRecettes.php';
 
 try{
     session_start();
@@ -87,7 +88,11 @@ try{
             $search = getVariable_GET('search');
             $controleur = new ListeRecettesFiltreesControleur($filtre,$search);
             break;
-            
+
+        case 'mesRecettes':
+            $controleur = new MesRecettesControleur();
+            break;
+
         default:
             throw new Exception("la page demandée n'a pas été trouvée");
     }
