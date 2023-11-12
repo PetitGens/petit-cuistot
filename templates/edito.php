@@ -33,5 +33,6 @@ function afficherPageEdito(){
         
 
     $contenu = ob_get_clean();
+
     require 'templates/layout.php';
 }
