@@ -7,7 +7,8 @@
 
 <?php
 require_once 'src/controllers/connexion.php';
-
+require_once 'src/model/categorieManager.php';
+$categories=(new CategorieManager())->getCategories();
 $connecte = ConnexionController::estConnecte();
 ?>
 
@@ -32,23 +33,35 @@ $connecte = ConnexionController::estConnecte();
     <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" style="height: inherit;font-family: 'Permanent Marker', serif;">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#" style="width: 200px;height: 70px;padding: 0px;margin: 0px;"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon" style="transform: translate(0px);width: inherit;height: inherit;margin: 5mm;background: transparent;margin-right: 5mm;"><img src="assets/img/Logo.png" style="width: inherit;display: flex;position: static;overflow: auto;height: inherit;margin: initial;"></span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-5" style="font-family: sans-serif;font-size: 25px;">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto ">
                     <li class="nav-item"><a class="nav-link active" href=".">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href=".?action=listeRecettes">Nos recettes</a></li>
                     <li class="nav-item"></li>
-                    <li class="nav-item dropdown show"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#">Filtres&nbsp;</a>
-                        <div class="dropdown-menu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light"><a class="dropdown-item" href="#" data-bs-theme="light"><span style="color: rgb(42, 57, 144); background-color: rgba(42, 57, 144, 0);">Catégories</span></a><a class="dropdown-item" href="#"><span style="color: rgb(42, 57, 144);">Titre</span></a><a class="dropdown-item" href="#"><span style="color: rgb(42, 57, 144);">Ingredients</span></a></div>
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#">Filtres&nbsp;</a>
+                        <div class="dropdown-menu has-submenu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light">
+                            <a id="tag" class="dropdown-item" data-bs-theme="light"><span style="color: rgb(42, 57, 144); background-color: rgba(42, 57, 144, 0);">Tag</span></a>
+                            <a id="titre" class="dropdown-item" ><span style="color: rgb(42, 57, 144);">Titre</span></a>
+                            <a id="ingredients" class="dropdown-item"><span style="color: rgb(42, 57, 144);">Ingredients</span></a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#">Catégories&nbsp;</a>
+                        <div class="dropdown-menu has-submenu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light">
+                            <?php
+                            foreach ((new CategorieManager())->getCategories() as $category ){
+                                ?><a class="dropdown-item" data-bs-theme="light" href="?action=recette-filtre&filtre=categorie&search=<?=$category?>"><span style="color: rgb(42, 57, 144); background-color: rgba(42, 57, 144, 0);"><?=$category?></span></a>
+                            <?php ;}
+                            ?>
+                        </div>
                     </li>
 
 
-                <?php //TODO Menu pour les utilisateurs connectés ; pour l'instant, on affiche juste Connecté... ?>
 
 
                     <?php
                     if($connecte){
                         ?>
                         <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#" style="background: var(--bs-primary);border-radius: 22px;color: var(--bs-light-text-emphasis);">Profil&nbsp;<img src="assets/img/Pticuisto.png" style="width: 2em;height: 2em;"></a>
-                            <div class="dropdown-menu show" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);"><a class="dropdown-item" href="#">Mes recettes</a><a class="dropdown-item" href="#">Nouvelle Recette</a><a class="dropdown-item" id="boutonDeconnexion" href="#">Se Déconnecter</a></div>
+                            <div class="dropdown-menu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);"><a class="dropdown-item" href="#">Mes recettes</a><a class="dropdown-item" href="#">Nouvelle Recette</a><a class="dropdown-item" id="boutonDeconnexion" href="#">Se Déconnecter</a></div>
                         </li>
                         <?php
                     }
@@ -64,6 +77,22 @@ $connecte = ConnexionController::estConnecte();
             </div>
         </div>
     </nav>
+
+    <div class="row visually-hidden" id="searchbar">
+        <div class="col-md-10 offset-md-1">
+            <div class="card m-auto" style="max-width:850px">
+                <div class="card-body">
+                    <form class="d-flex align-items-center" action="index.php" method="get">
+                        <input type="hidden" name="action" value="recette-filtre">
+                        <i class="fas fa-search d-none d-sm-block h4 text-body m-0"></i>
+                        <input class="form-control form-control-lg flex-shrink-1 form-control-borderless" type="search" placeholder="recherchez" name="search">
+                        <input type="hidden" id="filtre" name="filtre" value="">
+                        <p class="visually-hidden" id="info_recherche">ecrivez les éléments séparés par des virgules</p>
+                        <button class="btn btn-success btn-lg" type="submit">Search</button></form>
+                </div>
+            </div>
+        </div>
+    </div>
     <?=$contenu?>
     <footer class="text-center" style="background: var(--bs-primary);">
         <div class="container text-white py-4 py-lg-5" style="background: var(--bs-primary);">
@@ -82,6 +111,7 @@ $connecte = ConnexionController::estConnecte();
             <p>Copyright&nbsp;©Les cuistots du dimanche 2023</p>
         </div>
     </footer>
+    <script src="/assets/js/menuRecherche.js"
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Simple-Slider-swiper-bundle.min.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
