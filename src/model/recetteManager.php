@@ -491,4 +491,55 @@ class RecetteManager extends Manager {
 
         return false;
     }
+    public function getRecettesFiltre(string $Filtre,string $VALUE): array{
+        $requete = '';
+        switch($Filtre) {
+            default: throw(new Exception("filtre inexistant"));
+            break;
+            case "tag":
+                $VALUE= explode(',', $VALUE);
+                $requete = "SELECT * FROM CUI_RECETTE JOIN CUI_CATEGORIE USING (CAT_CODE)
+        JOIN CUI_UTILISATEUR USING (UTIL_ID) WHERE CUI_RECETTE.REC_ID IN(SELECT REC_ID FROM CUI_ETIQUETTAGE WHERE CUI_ETIQUETTAGE.TAG_ID IN (";
+                foreach ($VALUE as $item){
+                    $requete=$requete."SELECT TAG_ID FROM CUI_TAG WHERE UPPER(CUI_TAG.TAG_INTITULE)=UPPER('{$item}')";
+                    if ($VALUE[count($VALUE)-1]!==$item){
+                        $requete=$requete." UNION ";
+                    }
+                }
+                $requete=$requete."))";
+                break;
+            case "ingredient" :
+                $VALUE= explode(',', $VALUE);
+                $requete = "SELECT * FROM CUI_RECETTE JOIN CUI_CATEGORIE USING (CAT_CODE)
+        JOIN CUI_UTILISATEUR USING (UTIL_ID) WHERE CUI_RECETTE.REC_ID IN(SELECT REC_ID FROM CUI_COMPOSITION WHERE ING_ID IN (";
+                foreach ($VALUE as $item){
+                    $requete=$requete."
+SELECT ING_ID FROM CUI_INGREDIENT WHERE UPPER(ING_INTITULE)=UPPER('{$item}') ";
+                    if ($VALUE[count($VALUE)-1]!==$item){
+                        $requete=$requete." UNION ";
+                    }
+                }
+                $requete=$requete." ))";
+                break;
+            case "titre" :
+                $VALUE=strtoupper($VALUE);
+                $requete = "SELECT * FROM CUI_RECETTE JOIN CUI_CATEGORIE USING (CAT_CODE)
+        JOIN CUI_UTILISATEUR USING (UTIL_ID) WHERE UPPER(REC_TITRE) LIKE (UPPER('%{$VALUE}%'))";
+                break;
+            case "categorie"  :
+                $VALUE=(new CategorieManager())->getCodeCategorie($VALUE);
+                $requete = "SELECT * FROM CUI_RECETTE JOIN CUI_CATEGORIE USING (CAT_CODE)
+        JOIN CUI_UTILISATEUR USING (UTIL_ID) WHERE CAT_CODE='{$VALUE}'";
+        }
+        $resultat = self::projectionBdd($requete) ;
+
+        $recettes = [];
+
+        foreach($resultat as $ligne){
+            $recettes[] = self::recetteFromLigne($ligne);
+        }
+
+
+        return $recettes;
+    }
 }
