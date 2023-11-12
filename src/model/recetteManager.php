@@ -535,7 +535,6 @@ class RecetteManager extends Manager {
             $recettes[] = self::recetteFromLigne($ligne);
         }
 
-        var_dump($recettes);
 
         return $recettes;
     }
