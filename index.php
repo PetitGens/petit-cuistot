@@ -58,7 +58,9 @@ try{
             break;
 
         case 'detail-recette':
-            $controleur = new PageRecetteControleur();
+            $idRecette = getVariable_GET('idRecette');
+
+            $controleur = new PageRecetteControleur($idRecette);
             break;
 
 
@@ -72,4 +74,12 @@ try{
 catch(Exception $e){
     $messageErreur = $e->getMessage();
     require 'templates/erreur.php';
+}
+
+function getVariable_GET($cle){
+    if(! isset($_GET[$cle]) || empty($_GET[$cle])){
+        header('Location: .');
+        exit;
+    }
+    return $_GET[$cle];
 }

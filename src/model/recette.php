@@ -25,7 +25,7 @@ class Recette {
     private string $image;
     private string $date_creation;
     private string $date_modification;
-    private string $statut;
+    protected string $statut;
     private string $idAuteur;
     private string $pseudoAuteur;
     private string $categorie;
