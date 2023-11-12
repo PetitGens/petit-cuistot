@@ -45,4 +45,6 @@ class ConnexionController extends Controleur {
 
         return self::$utilisateur;
     }
+
+    
 }

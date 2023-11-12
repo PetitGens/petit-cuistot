@@ -8,7 +8,7 @@
 <?php
 require_once 'src/controllers/connexion.php';
 
-$connecte = ConnexionController::estConnecte();
+$utilisateur = ConnexionController::estConnecte();
 ?>
 
 <!DOCTYPE html>
@@ -40,15 +40,24 @@ $connecte = ConnexionController::estConnecte();
                         <div class="dropdown-menu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);" data-bs-theme="light"><a class="dropdown-item" href="#" data-bs-theme="light"><span style="color: rgb(42, 57, 144); background-color: rgba(42, 57, 144, 0);">Catégories</span></a><a class="dropdown-item" href="#"><span style="color: rgb(42, 57, 144);">Titre</span></a><a class="dropdown-item" href="#"><span style="color: rgb(42, 57, 144);">Ingredients</span></a></div>
                     </li>
 
-
-                <?php //TODO Menu pour les utilisateurs connectés ; pour l'instant, on affiche juste Connecté... ?>
-
-
                     <?php
-                    if($connecte){
+                    if($utilisateur){
                         ?>
-                        <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#" style="background: var(--bs-primary);border-radius: 22px;color: var(--bs-light-text-emphasis);">Profil&nbsp;<img src="assets/img/Pticuisto.png" style="width: 2em;height: 2em;"></a>
-                            <div class="dropdown-menu show" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);"><a class="dropdown-item" href="#">Mes recettes</a><a class="dropdown-item" href="#">Nouvelle Recette</a><a class="dropdown-item" id="boutonDeconnexion" href="#">Se Déconnecter</a></div>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#" style="background: var(--bs-primary);border-radius: 22px;color: var(--bs-light-text-emphasis);">Profil&nbsp;
+                                <img src="assets/img/Pticuisto.png" style="width: 2em;height: 2em;">
+                            </a>
+                            <div class="dropdown-menu" data-bs-popper="none" style="--bs-body-bg: var(--bs-primary);background: var(--bs-secondary);">
+                                <a class="dropdown-item" href="#">Mes recettes</a>
+                                <a class="dropdown-item" href="#">Nouvelle Recette</a>
+                                <?php if ($utilisateur->estAdministrateur()){
+                                    ?>
+                                    <a class="dropdown-item" href="?action=recettesAdmin">Recettes a valider</a>
+                                    <a class="dropdown-item" href="?action=modifier-edito">Modifier l'édito</a>
+                                    <?php
+                                }?>
+                                <a class="dropdown-item" id="boutonDeconnexion" href="#">Se Déconnecter</a>
+                            </div>
                         </li>
                         <?php
                     }

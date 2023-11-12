@@ -14,6 +14,7 @@ require_once 'src/controllers/pageConnexion.php';
 require_once 'src/controllers/connexion.php';
 require_once 'src/controllers/recettesAdmin.php';
 require_once 'src/controllers/validationRecette.php';
+require_once 'src/controllers/pageModifierEdito.php';
 
 try{
     session_start();
@@ -68,6 +69,10 @@ try{
         case 'validerRecette':
             $idRecette = getVariable_GET('idRecette');
             $controleur = new ValidationRecetteControleur($idRecette);
+            break;
+
+        case 'modifier-edito':
+            $controleur = new ModifierEditoControleur();
             break;
 
         default:
