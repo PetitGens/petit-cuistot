@@ -11,7 +11,7 @@ if (isset($_POST['redirect'])) {
 
     // Écrire le contenu dans le fichier
     file_put_contents($cheminFichier, $contenuEdito);
-    header("Location: index.php");
+    header("Location: .");
     exit();
 }
 
